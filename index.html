@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chedli Khangui - Software Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --bg-dark: #0a0a0f;
+            --bg-card: #1a1a24;
+            --bg-card-hover: #22223a;
+            --text: #e4e4e7;
+            --text-gray: #a1a1aa;
+            --border: #27273f;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        .lang-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            background: rgba(99, 102, 241, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 10px 24px;
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 14px;
+        }
+        .lang-toggle:hover {
+            background: rgba(99, 102, 241, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            padding: 80px 20px 60px;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -300px;
+            right: -300px;
+            animation: pulse 8s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        .hero-content {
+            text-align: center;
+            color: var(--text);
+            z-index: 10;
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Profile Container with Skill Bubbles */
+        .profile-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            height: 400px;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .profile-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 40px rgba(99, 102, 241, 0.4));
+        }
+         .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            z-index: 10;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Skill Bubbles Around Profile */
+        .skill-bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        .skill-bubble {
+            position: absolute;
+            background: rgba(99, 102, 241, 0.12);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(99, 102, 241, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 12px;
+            text-align: center;
+            padding: 8px;
+            pointer-events: all;
+            animation: float 4s ease-in-out infinite;
+        }
+        .skill-bubble:hover {
+            background: rgba(99, 102, 241, 0.25);
+            border-color: var(--primary);
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+            z-index: 10;
+        }
+        
+        /* Different sizes for bubbles */
+        .skill-bubble.large { width: 90px; height: 90px; font-size: 13px; }
+        .skill-bubble.medium { width: 75px; height: 75px; }
+        .skill-bubble.small { width: 65px; height: 65px; }
+        
+        /* Static positions for 16 bubbles */
+        .skill-bubble:nth-child(1) { top: 5%; left: 8%; animation-delay: 0s; }
+        .skill-bubble:nth-child(2) { top: 2%; left: 20%; animation-delay: 0.3s; }
+        .skill-bubble:nth-child(3) { top: 0%; left: 35%; animation-delay: 0.6s; }
+        .skill-bubble:nth-child(4) { top: 1%; left: 48%; animation-delay: 0.9s; }
+        .skill-bubble:nth-child(5) { top: 3%; right: 35%; animation-delay: 1.2s; }
+        .skill-bubble:nth-child(6) { top: 5%; right: 20%; animation-delay: 1.5s; }
+        .skill-bubble:nth-child(7) { top: 8%; right: 8%; animation-delay: 1.8s; }
+        .skill-bubble:nth-child(8) { top: 30%; left: 2%; animation-delay: 2.1s; }
+        .skill-bubble:nth-child(9) { top: 30%; right: 2%; animation-delay: 2.4s; }
+        .skill-bubble:nth-child(10) { bottom: 8%; left: 8%; animation-delay: 2.7s; }
+        .skill-bubble:nth-child(11) { bottom: 5%; left: 20%; animation-delay: 3s; }
+        .skill-bubble:nth-child(12) { bottom: 2%; left: 35%; animation-delay: 3.3s; }
+        .skill-bubble:nth-child(13) { bottom: 0%; left: 48%; animation-delay: 3.6s; }
+        .skill-bubble:nth-child(14) { bottom: 3%; right: 35%; animation-delay: 3.9s; }
+        .skill-bubble:nth-child(15) { bottom: 6%; right: 20%; animation-delay: 4.2s; }
+        .skill-bubble:nth-child(16) { bottom: 10%; right: 8%; animation-delay: 4.5s; }
+
+        /* Hand Buttons */
+        .hand-buttons {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 3;
+        }
+        .hand-btn {
+            position: absolute;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            pointer-events: all;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hand-btn::before {
+            content: '';
+            font-size: 16px;
+        }
+        .hand-btn.left::before {
+            content: '🚀';
+        }
+        .hand-btn.right::before {
+            content: '👨‍💻';
+        }
+        .hand-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(99, 102, 241, 0.6);
+        }
+        .hand-btn.left {
+            bottom: 24%;
+            left: -8%;
+        }
+        .hand-btn.right {
+            bottom: 22%;
+            right: -5%;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-gray);
+            font-weight: 400;
+        }
+        .hero .description {
+            font-size: 1.1rem;
+            max-width: 900px;
+            margin: 0 auto 35px;
+            line-height: 1.8;
+            color: var(--text-gray);
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .contact-item {
+            background: rgba(99, 102, 241, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            color: var(--text-gray);
+            transition: all 0.3s ease;
+        }
+        .contact-item:hover {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        section {
+            margin-bottom: 80px;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .about-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+        }
+        .about-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.15);
+        }
+        .about-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            color: var(--primary);
+        }
+        .about-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(99, 102, 241, 0.2);
+        }
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+        .project-header {
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(236, 72, 153, 0.05));
+        }
+        .project-date {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            padding: 5px 14px;
+            background: rgba(236, 72, 153, 0.15);
+            border-radius: 20px;
+        }
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        .project-company {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .project-body {
+            padding: 0 30px 30px;
+        }
+        .project-preview {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .project-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .tech-tag {
+            background: rgba(99, 102, 241, 0.08);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+        }
+        .view-details {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .view-details::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover .view-details::after {
+            transform: translateX(5px);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .modal-header {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
+            padding: 35px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text);
+            font-size: 1.8rem;
+        }
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+        .modal-subtitle {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .modal-date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .modal-body {
+            padding: 35px;
+        }
+        .modal-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .modal-tab {
+            background: none;
+            border: none;
+            padding: 14px 26px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-gray);
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            font-size: 0.95rem;
+            position: relative;
+        }
+        .modal-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        .modal-tab:hover {
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+        .modal-tab-content {
+            display: none;
+        }
+        .modal-tab-content.active {
+            display: block;
+            animation: fadeInContent 0.4s ease;
+        }
+        @keyframes fadeInContent {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .modal-description {
+            color: var(--text-gray);
+            line-height: 1.9;
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+        .modal-features {
+            list-style: none;
+            padding: 0;
+        }
+        .modal-features li {
+            padding: 14px 0;
+            padding-left: 35px;
+            position: relative;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .modal-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        .modal-tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+        .modal-tech-tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        .tech-section-title {
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        .media-placeholder {
+            background: rgba(99, 102, 241, 0.05);
+            padding: 80px 20px;
+            border-radius: 20px;
+            text-align: center;
+            color: var(--primary);
+            font-weight: 600;
+            border: 2px dashed var(--border);
+            font-size: 1.1rem;
+        }
+        .media-placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-card);
+            color: var(--text);
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+        }
+        footer h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .social-links a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 12px 24px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+        }
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+        footer p {
+            margin-top: 25px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Scrollbar */
+        .modal-content::-webkit-scrollbar {
+            width: 10px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* RESPONSIVE STYLES */
+        
+        /* Tablets (landscape and portrait) */
+        @media (max-width: 1024px) {
+            .profile-wrapper {
+                max-width: 900px;
+                height: 350px;
+            }
+            .profile-container {
+                width: 240px;
+                height: 240px;
+            }
+            .hand-buttons {
+                width: 240px;
+                height: 240px;
+            }
+            .skill-bubble.large { width: 75px; height: 75px; font-size: 11px; }
+            .skill-bubble.medium { width: 65px; height: 65px; font-size: 11px; }
+            .skill-bubble.small { width: 55px; height: 55px; font-size: 10px; }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Mobile devices (large phones) */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 70px 15px 40px;
+                min-height: auto;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+                z-index: 2;
+                margin-bottom: 10px;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+            
+            .hero .description {
+                font-size: 0.95rem;
+                padding: 0 10px;
+            }
+            
+            .profile-wrapper {
+                max-width: 500px;
+                height: 320px;
+                margin-bottom: 30px;
+            }
+            
+            .profile-container {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .hand-buttons {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .hand-btn {
+                padding: 10px 16px;
+                font-size: 11px;
+                gap: 5px;
+            }
+            
+            .hand-btn::before {
+                font-size: 14px;
+            }
+            
+            .hand-btn.left {
+                bottom: 24%;
+                left: -12%;
+            }
+            
+            .hand-btn.right {
+                bottom: 22%;
+                right: -10%;
+            }
+            
+            .skill-bubble {
+                font-size: 9px;
+                padding: 5px;
+            }
+            
+            .skill-bubble.large { width: 60px; height: 60px; font-size: 10px; }
+            .skill-bubble.medium { width: 52px; height: 52px; font-size: 9px; }
+            .skill-bubble.small { width: 46px; height: 46px; font-size: 8px; }
+            
+            .contact-info {
+                gap: 12px;
+                margin-top: 25px;
+            }
+            
+            .contact-item {
+                font-size: 0.85rem;
+                padding: 10px 18px;
+            }
+            
+            .container {
+                padding: 40px 15px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .about-card {
+                padding: 25px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .project-header, .project-body {
+                padding: 20px;
+            }
+            
+            .project-title {
+                font-size: 1.3rem;
+            }
+            
+            .modal-content {
+                border-radius: 16px;
+                max-height: 85vh;
+            }
+            
+            .modal-header {
+                padding: 25px 20px;
+            }
+            
+            .modal-close {
+                width: 35px;
+                height: 35px;
+                top: 20px;
+                right: 20px;
+                font-size: 1.5rem;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+                padding-right: 40px;
+            }
+            
+            .modal-subtitle {
+                font-size: 1rem;
+            }
+            
+            .modal-body {
+                padding: 25px 20px;
+            }
+            
+            .modal-tabs {
+                gap: 8px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            
+            .modal-tabs::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .modal-tab {
+                padding: 12px 18px;
+                font-size: 0.85rem;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            
+            .modal-description {
+                font-size: 0.9rem;
+            }
+            
+            .modal-features li {
+                font-size: 0.85rem;
+                padding: 10px 0;
+                padding-left: 30px;
+            }
+            
+            .modal-tech-tag {
+                font-size: 0.8rem;
+                padding: 8px 14px;
+            }
+            
+            .media-placeholder {
+                padding: 60px 15px;
+                font-size: 1rem;
+            }
+            
+            .media-placeholder-icon {
+                font-size: 3rem;
+            }
+            
+            .lang-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 8px 18px;
+                font-size: 12px;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            .hero {
+                padding: 60px 10px 30px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+            
+            .hero .description {
+                font-size: 0.85rem;
+                line-height: 1.6;
+            }
+            
+            .profile-wrapper {
+                max-width: 100%;
+                height: 280px;
+                margin-bottom: 25px;
+            }
+            
+            .profile-container {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .hand-buttons {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .hand-btn {
+                padding: 8px 12px;
+                font-size: 9px;
+                gap: 4px;
+                letter-spacing: 0.5px;
+            }
+            
+            .hand-btn::before {
+                font-size: 12px;
+            }
+            
+            .hand-btn.left {
+                bottom: 20%;
+                left: -15%;
+            }
+            
+            .hand-btn.right {
+                bottom: 18%;
+                right: -12%;
+            }
+            
+            .skill-bubble {
+                font-size: 7px;
+                padding: 3px;
+            }
+            
+            .skill-bubble.large { width: 48px; height: 48px; font-size: 8px; }
+            .skill-bubble.medium { width: 42px; height: 42px; font-size: 7px; }
+            .skill-bubble.small { width: 38px; height: 38px; font-size: 7px; }
+            
+            .contact-info {
+                gap: 10px;
+            }
+            
+            .contact-item {
+                font-size: 0.75rem;
+                padding: 8px 14px;
+            }
+            
+            .container {
+                padding: 30px 10px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 25px;
+            }
+            
+            .about-card {
+                padding: 20px;
+            }
+            
+            .about-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .about-card p {
+                font-size: 0.85rem;
+            }
+            
+            .project-header, .project-body {
+                padding: 18px;
+            }
+            
+            .project-title {
+                font-size: 1.1rem;
+            }
+            
+            .project-date {
+                font-size: 0.75rem;
+                padding: 4px 10px;
+            }
+            
+            .project-company {
+                font-size: 0.85rem;
+            }
+            
+            .project-preview {
+                font-size: 0.85rem;
+            }
+            
+            .tech-tag {
+                font-size: 0.7rem;
+                padding: 4px 10px;
+            }
+            
+            .view-details {
+                font-size: 0.8rem;
+            }
+            
+            .modal.active {
+                padding: 10px;
+            }
+            
+            .modal-header {
+                padding: 20px 15px;
+            }
+            
+            .modal-close {
+                width: 32px;
+                height: 32px;
+                top: 15px;
+                right: 15px;
+                font-size: 1.3rem;
+            }
+            
+            .modal-title {
+                font-size: 1.2rem;
+                padding-right: 35px;
+            }
+            
+            .modal-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .modal-date {
+                font-size: 0.8rem;
+            }
+            
+            .modal-body {
+                padding: 20px 15px;
+            }
+            
+            .modal-tab {
+                padding: 10px 14px;
+                font-size: 0.8rem;
+            }
+            
+            .tech-section-title {
+                font-size: 1rem;
+            }
+            
+            footer h3 {
+                font-size: 1.2rem;
+            }
+            
+            .social-links a {
+                font-size: 0.85rem;
+                padding: 10px 18px;
+            }
+            
+            .lang-toggle {
+                padding: 6px 14px;
+                font-size: 11px;
+            }
+        }
+
+        /* Very small devices */
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .profile-container {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .hand-buttons {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .hand-btn {
+                padding: 6px 10px;
+                font-size: 8px;
+            }
+            
+            .skill-bubble.large { width: 40px; height: 40px; font-size: 7px; }
+            .skill-bubble.medium { width: 36px; height: 36px; font-size: 6px; }
+            .skill-bubble.small { width: 32px; height: 32px; font-size: 6px; }
+        }
+
+        /* Landscape orientation fixes for mobile */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                padding: 40px 20px 30px;
+            }
+            
+            .profile-wrapper {
+                height: 250px;
+            }
+            
+            .profile-container {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .hand-buttons {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .skill-bubble.large { width: 50px; height: 50px; }
+            .skill-bubble.medium { width: 44px; height: 44px; }
+            .skill-bubble.small { width: 38px; height: 38px; }
+        }
+
+        /* Touch device improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .skill-bubble:active {
+                background: rgba(99, 102, 241, 0.25);
+                transform: scale(0.95);
+            }
+            
+            .hand-btn:active {
+                transform: scale(0.95);
+            }
+            
+            .project-card:active {
+                transform: translateY(-5px);
+            }
+            
+            .modal-tab:active {
+                background: rgba(99, 102, 241, 0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Prevent zoom on double-tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+
+    <div class="lang-toggle" onclick="toggleLanguage()">
+        <span id="langText">🇫🇷 FR</span>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="profile-wrapper">
+                <!-- Skill Bubbles Around Profile - 16 bubbles -->
+                <div class="skill-bubbles">
+                    <div class="skill-bubble large">Java<br>Spring Boot</div>
+                    <div class="skill-bubble medium">Angular</div>
+                    <div class="skill-bubble medium">ReactJS</div>
+                    <div class="skill-bubble small">Docker</div>
+                    <div class="skill-bubble small">Jenkins</div>
+                    <div class="skill-bubble medium">.NET</div>
+                    <div class="skill-bubble small">MySQL</div>
+                    <div class="skill-bubble small">DevOps</div>
+                    <div class="skill-bubble medium">TypeScript</div>
+                    <div class="skill-bubble small">PostgreSQL</div>
+                    <div class="skill-bubble medium">Git</div>
+                    <div class="skill-bubble small">REST API</div>
+                    <div class="skill-bubble medium">Microservices</div>
+                    <div class="skill-bubble small">Kubernetes</div>
+                    <div class="skill-bubble medium">MongoDB</div>
+                    <div class="skill-bubble small">CI/CD</div>
+                </div>
+
+                <!-- Profile Image Container -->
+                <div class="profile-container">
+                    <img src="./erasebg-transformed.png" alt="Chedli Khangui" class="profile-image">
+                    
+                    <!-- Hand Buttons Fixed on Hands -->
+                    <div class="hand-buttons">
+                        <button class="hand-btn left" onclick="scrollToSection('projects')">
+                            <span class="projects-btn-text">Projects</span>
+                        </button>
+                        <button class="hand-btn right" onclick="scrollToSection('about')">
+                            <span class="about-btn-text">About</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <h1 id="heroName">Chedli Khangui</h1>
+            <div class="subtitle" id="heroTitle">Software Architecture Engineer</div>
+            <p class="description" id="heroDesc">
+                Passionate about full-stack development with Java, Spring Boot, Angular and ReactJS, with solid experience in CI/CD and DevOps.
+            </p>
+            
+            <div class="contact-info">
+                <div class="contact-item">📧 chedli.khangui@gmail.com</div>
+                <div class="contact-item">📱 +216 50837010</div>
+                <div class="contact-item">📍 Tunis, Tunisia</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title" id="aboutTitle">About Me</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3 id="profileTitle">Profile</h3>
+                    <p id="profileText">
+                        Software architecture engineer passionate about full-stack development in Java, Spring Boot, Angular and ReactJS, with solid experience in CI/CD and DevOps. I design high-performance, scalable and user-oriented applications.
+                    </p>
+                </div>
+                
+                <div class="about-card">
+                    <h3 id="educationTitle">Education</h3>
+                    <div style="margin-bottom: 18px;">
+                        <div style="font-weight: 700; color: var(--primary); font-size: 1rem;">ESPRIT</div>
+                        <div style="color: var(--text-gray); font-size: 0.9rem;" id="educationDegree1">Software Architecture Engineering</div>
+                        <div style="color: var(--accent); font-size: 0.8rem;">2022 - 2025</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700; color: var(--primary); font-size: 1rem;">ESPRIT School of Business</div>
+                        <div style="color: var(--text-gray); font-size: 0.9rem;" id="educationDegree2">Bachelor in Management IT</div>
+                        <div style="color: var(--accent); font-size: 0.8rem;">2019 - 2022</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2 class="section-title" id="projectsTitle">Projects & Experience</h2>
+            <div class="projects-grid">
+                <!-- Project 1: GreenSpace -->
+                <div class="project-card" onclick="openModal('proj1')">
+                    <div class="project-header">
+                        <span class="project-date">01/2025 - 07/2025</span>
+                        <h3 class="project-title" id="proj1Title">GreenSpace - Spring Boot & ReactJS</h3>
+                        <div class="project-company">Biwaï</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj1Preview">Web application for user management and internal communication with complete CI/CD pipeline implementation...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">ReactJS</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Jenkins</span>
+                            <span class="tech-tag">SonarQube</span>
+                        </div>
+                        <span class="view-details" id="proj1ViewMore">View Full Details</span>
+                    </div>
+                </div>
+
+                <!-- Project 2: Google Maps Integration -->
+                <div class="project-card" onclick="openModal('proj2')">
+                    <div class="project-header">
+                        <span class="project-date">06/2024 - 08/2024</span>
+                        <h3 class="project-title" id="proj2Title">Geolocation App - Angular & Spring Boot</h3>
+                        <div class="project-company">NowWeProg</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj2Preview">Full-stack application with Google Maps API integration for establishments consulting and reviews...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">Google Maps API</span>
+                            <span class="tech-tag">Java</span>
+                        </div>
+                        <span class="view-details" id="proj2ViewMore">View Full Details</span>
+                    </div>
+                </div>
+
+                <!-- Project 3: Education Platform -->
+                <div class="project-card" onclick="openModal('proj3')">
+                    <div class="project-header">
+                        <span class="project-date">07/2023 - 08/2023</span>
+                        <h3 class="project-title" id="proj3Title">Online Education Platform</h3>
+                        <div class="project-company">NowWeProg</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj3Preview">Education platform for students with comprehensive course, test and resource management...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Agile</span>
+                        </div>
+                        <span class="view-details" id="proj3ViewMore">View Full Details</span>
+                    </div>
+                </div>
+
+                <!-- Project 4: Deployment Automation -->
+                <div class="project-card" onclick="openModal('proj4')">
+                    <div class="project-header">
+                        <span class="project-date">01/2022 - 06/2022</span>
+                        <h3 class="project-title" id="proj4Title">Deployment Automation - .NET & Angular</h3>
+                        <div class="project-company">Axe Finance</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj4Preview">Application to automate packaging and optimize deployment processes with advanced management features...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">.NET</span>
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">SQL</span>
+                        </div>
+                        <span class="view-details" id="proj4ViewMore">View Full Details</span>
+                    </div>
+                </div>
+
+                <!-- Project 5: Poker Planning -->
+                <div class="project-card" onclick="openModal('proj5')">
+                    <div class="project-header">
+                        <span class="project-date">01/2024 - 05/2024</span>
+                        <h3 class="project-title" id="proj5Title">Poker Planning for Scrum</h3>
+                        <div class="project-company">Personal Project</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj5Preview">Agile management application with Jira integration, voting system and statistical analysis...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">Jira API</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                        <span class="view-details" id="proj5ViewMore">View Full Details</span>
+                    </div>
+                </div>
+
+                <!-- Project 6: CI/CD Pipeline -->
+                <div class="project-card" onclick="openModal('proj6')">
+                    <div class="project-header">
+                        <span class="project-date">01/2024 - 02/2024</span>
+                        <h3 class="project-title" id="proj6Title">DevOps: CI/CD Pipeline</h3>
+                        <div class="project-company">Personal Project</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj6Preview">Complete pipeline with automated testing, code quality analysis and performance monitoring...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Jenkins</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">SonarQube</span>
+                            <span class="tech-tag">Grafana</span>
+                        </div>
+                        <span class="view-details" id="proj6ViewMore">View Full Details</span>
+                    </div>
+                </div>
+
+                <!-- Project 7: Microservices -->
+                <div class="project-card" onclick="openModal('proj7')">
+                    <div class="project-header">
+                        <span class="project-date">10/2023 - 12/2023</span>
+                        <h3 class="project-title" id="proj7Title">Microservices Architecture</h3>
+                        <div class="project-company">Personal Project</div>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj7Preview">Enterprise architecture with service discovery, API gateway and secure authentication...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">Eureka</span>
+                            <span class="tech-tag">Keycloak</span>
+                            <span class="tech-tag">Docker</span>
+                        </div>
+                        <span class="view-details" id="proj7ViewMore">View Full Details</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <h3 id="footerContact">Let's Connect!</h3>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/chedli-khangui" target="_blank">LinkedIn</a>
+            <a href="https://github.com/chedlikh" target="_blank">GitHub</a>
+            <a href="mailto:chedli.khangui@gmail.com">Email</a>
+        </div>
+        <p>© 2025 Chedli Khangui. All rights reserved.</p>
+    </footer>
+
+    <!-- Modal Container -->
+    <div class="modal" id="modal" onclick="closeModalOutside(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-close" onclick="closeModal()">×</div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-subtitle" id="modalCompany"></div>
+                <div class="modal-date" id="modalDate"></div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-tabs" id="modalTabs"></div>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'en';
+        
+        const modalData = {
+            proj1: {
+                en: {
+                    title: 'GreenSpace - Spring Boot & ReactJS',
+                    company: 'Biwaï',
+                    date: '01/2025 - 07/2025',
+                    tabs: ['📝 Description', '🎥 Video', '📸 Screenshots', '🚀 Live Demo'],
+                    content: {
+                        description: `<p class="modal-description">Development of GreenSpace web application in Spring Boot and ReactJS for comprehensive user management and internal communication.</p>
+                            <ul class="modal-features">
+                                <li>Implemented complete CI/CD pipeline with Docker, Jenkins and SonarQube</li>
+                                <li>Developed instant messaging system with real-time notifications</li>
+                                <li>Created news module with reactions, comments and sharing features</li>
+                                <li>Ensured continuous code quality and automated deployments</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Used</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">SCRUM</span>
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">ReactJS</span>
+                                <span class="modal-tech-tag">MySQL</span>
+                                <span class="modal-tech-tag">Docker</span>
+                                <span class="modal-tech-tag">Jenkins</span>
+                                <span class="modal-tech-tag">SonarQube</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Project demonstration video</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Project screenshots gallery</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Live demo available</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contact me to schedule a personalized demonstration</div>
+                        </div>`
+                    }
+                },
+                fr: {
+                    title: 'GreenSpace - Spring Boot & ReactJS',
+                    company: 'Biwaï',
+                    date: '01/2025 - 07/2025',
+                    tabs: ['📝 Description', '🎥 Vidéo', '📸 Captures', '🚀 Démo Live'],
+                    content: {
+                        description: `<p class="modal-description">Développement de l'application web GreenSpace en Spring Boot et ReactJS pour la gestion complète des utilisateurs et la communication interne.</p>
+                            <ul class="modal-features">
+                                <li>Mise en place d'un pipeline CI/CD complet avec Docker, Jenkins et SonarQube</li>
+                                <li>Développement d'un système de messagerie instantanée avec notifications temps réel</li>
+                                <li>Création d'un module actualités avec réactions, commentaires et partages</li>
+                                <li>Assurance de la qualité du code et déploiements automatisés continus</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Utilisées</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">SCRUM</span>
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">ReactJS</span>
+                                <span class="modal-tech-tag">MySQL</span>
+                                <span class="modal-tech-tag">Docker</span>
+                                <span class="modal-tech-tag">Jenkins</span>
+                                <span class="modal-tech-tag">SonarQube</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Vidéo de démonstration du projet</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Galerie de captures d'écran</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Démo en direct disponible</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contactez-moi pour planifier une démonstration personnalisée</div>
+                        </div>`
+                    }
+                }
+            },
+            proj2: {
+                en: {
+                    title: 'Geolocation App - Angular & Spring Boot',
+                    company: 'NowWeProg',
+                    date: '06/2024 - 08/2024',
+                    tabs: ['📝 Description', '🎥 Video', '📸 Screenshots', '🚀 Live Demo'],
+                    content: {
+                        description: `<p class="modal-description">Full-stack development with Google Maps API integration for geolocation services.</p>
+                            <ul class="modal-features">
+                                <li>Built comprehensive establishments consulting system</li>
+                                <li>Implemented reviews, ratings and comment system with image uploads</li>
+                                <li>Developed interactive reactions and user engagement features</li>
+                                <li>Integrated Google Maps for accurate geolocation services</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Used</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">Angular</span>
+                                <span class="modal-tech-tag">Java</span>
+                                <span class="modal-tech-tag">Google Maps API</span>
+                                <span class="modal-tech-tag">Agile</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Project demonstration video</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Project screenshots gallery</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Live demo available</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contact me for a demonstration</div>
+                        </div>`
+                    }
+                },
+                fr: {
+                    title: 'App Géolocalisation - Angular & Spring Boot',
+                    company: 'NowWeProg',
+                    date: '06/2024 - 08/2024',
+                    tabs: ['📝 Description', '🎥 Vidéo', '📸 Captures', '🚀 Démo Live'],
+                    content: {
+                        description: `<p class="modal-description">Développement full-stack avec intégration de l'API Google Maps pour services de géolocalisation.</p>
+                            <ul class="modal-features">
+                                <li>Construction d'un système complet de consultation des établissements</li>
+                                <li>Implémentation d'un système d'avis, notes et commentaires avec upload d'images</li>
+                                <li>Développement de fonctionnalités interactives de réactions et d'engagement</li>
+                                <li>Intégration Google Maps pour services de géolocalisation précis</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Utilisées</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">Angular</span>
+                                <span class="modal-tech-tag">Java</span>
+                                <span class="modal-tech-tag">Google Maps API</span>
+                                <span class="modal-tech-tag">Agile</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Vidéo de démonstration</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Galerie de captures</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Démo en direct disponible</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contactez-moi pour une démonstration</div>
+                        </div>`
+                    }
+                }
+            },
+            proj3: {
+                en: {
+                    title: 'Online Education Platform',
+                    company: 'NowWeProg',
+                    date: '07/2023 - 08/2023',
+                    tabs: ['📝 Description', '🎥 Video', '📸 Screenshots', '🚀 Live Demo'],
+                    content: {
+                        description: `<p class="modal-description">Education platform for primary and university students.</p>
+                            <ul class="modal-features">
+                                <li>Comprehensive system analysis and innovative solution proposals</li>
+                                <li>Developed course, test and resource management application</li>
+                                <li>Collaborated in Agile environment for requirements analysis</li>
+                                <li>Implemented scalable architecture for educational content</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Used</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">Angular</span>
+                                <span class="modal-tech-tag">Java</span>
+                                <span class="modal-tech-tag">Agile</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Project video</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Screenshots gallery</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Live demo</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contact me for access</div>
+                        </div>`
+                    }
+                },
+                fr: {
+                    title: 'Plateforme d\'Éducation en Ligne',
+                    company: 'NowWeProg',
+                    date: '07/2023 - 08/2023',
+                    tabs: ['📝 Description', '🎥 Vidéo', '📸 Captures', '🚀 Démo Live'],
+                    content: {
+                        description: `<p class="modal-description">Plateforme d'éducation pour élèves primaire et universitaires.</p>
+                            <ul class="modal-features">
+                                <li>Analyse système complète et propositions de solutions innovantes</li>
+                                <li>Développement application de gestion des cours, tests et ressources</li>
+                                <li>Collaboration environnement Agile pour analyse des besoins</li>
+                                <li>Architecture évolutive pour contenu éducatif implémentée</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Utilisées</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">Angular</span>
+                                <span class="modal-tech-tag">Java</span>
+                                <span class="modal-tech-tag">Agile</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Vidéo du projet</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Galerie de captures</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Démo en direct</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contactez-moi pour accès</div>
+                        </div>`
+                    }
+                }
+            },
+            proj4: {
+                en: {
+                    title: 'Deployment Automation - .NET & Angular',
+                    company: 'Axe Finance',
+                    date: '01/2022 - 06/2022',
+                    tabs: ['📝 Description', '🎥 Video', '📸 Screenshots', '🚀 Live Demo'],
+                    content: {
+                        description: `<p class="modal-description">Application to automate packaging and optimize deployment processes.</p>
+                            <ul class="modal-features">
+                                <li>Task management service with backup and dashboard</li>
+                                <li>Version management service for task classification</li>
+                                <li>SQL editor for precise script generation</li>
+                                <li>User management system administered by project manager</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Used</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">.NET</span>
+                                <span class="modal-tech-tag">Angular</span>
+                                <span class="modal-tech-tag">SQL</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Demo video</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Screenshots</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Live demo</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contact for access</div>
+                        </div>`
+                    }
+                },
+                fr: {
+                    title: 'Automatisation Déploiement - .NET & Angular',
+                    company: 'Axe Finance',
+                    date: '01/2022 - 06/2022',
+                    tabs: ['📝 Description', '🎥 Vidéo', '📸 Captures', '🚀 Démo Live'],
+                    content: {
+                        description: `<p class="modal-description">Application pour automatiser le packaging et optimiser les déploiements.</p>
+                            <ul class="modal-features">
+                                <li>Service gestion des tâches avec sauvegarde et tableau de bord</li>
+                                <li>Service gestion des versions pour classification des tâches</li>
+                                <li>Éditeur SQL pour génération de scripts précis</li>
+                                <li>Système gestion utilisateurs administré par chef de projet</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Utilisées</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">.NET</span>
+                                <span class="modal-tech-tag">Angular</span>
+                                <span class="modal-tech-tag">SQL</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Vidéo démo</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Captures d'écran</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Démo en direct</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contactez pour accès</div>
+                        </div>`
+                    }
+                }
+            },
+            proj5: {
+                en: {
+                    title: 'Poker Planning for Scrum',
+                    company: 'Personal Project',
+                    date: '01/2024 - 05/2024',
+                    tabs: ['📝 Description', '🎥 Video', '📸 Screenshots', '🚀 Live Demo'],
+                    content: {
+                        description: `<p class="modal-description">Full-stack Agile management application with Jira integration.</p>
+                            <ul class="modal-features">
+                                <li>Complete project, sprint, and ticket management with Jira import</li>
+                                <li>Advanced team operations with search, filter, and satisfaction tracking</li>
+                                <li>Comprehensive performance indicators and delay estimation</li>
+                                <li>Claims management with auto-fill using image analysis</li>
+                                <li>Real-time voting synchronization</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Used</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">Angular</span>
+                                <span class="modal-tech-tag">Java</span>
+                                <span class="modal-tech-tag">Jira API</span>
+                                <span class="modal-tech-tag">PostgreSQL</span>
+                                <span class="modal-tech-tag">WebSocket</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Project demo video</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Application screenshots</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Live demo available</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contact me for a personalized demonstration</div>
+                        </div>`
+                    }
+                },
+                fr: {
+                    title: 'Poker Planning pour Scrum',
+                    company: 'Projet Personnel',
+                    date: '01/2024 - 05/2024',
+                    tabs: ['📝 Description', '🎥 Vidéo', '📸 Captures', '🚀 Démo Live'],
+                    content: {
+                        description: `<p class="modal-description">Application de gestion Agile full-stack avec intégration Jira.</p>
+                            <ul class="modal-features">
+                                <li>Gestion complète projets, sprints et tickets avec import Jira</li>
+                                <li>Opérations d'équipe avancées avec recherche, filtrage et suivi satisfaction</li>
+                                <li>Indicateurs de performance complets et estimation des retards</li>
+                                <li>Gestion des réclamations avec auto-remplissage via analyse d'images</li>
+                                <li>Synchronisation des votes en temps réel</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Utilisées</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">Angular</span>
+                                <span class="modal-tech-tag">Java</span>
+                                <span class="modal-tech-tag">Jira API</span>
+                                <span class="modal-tech-tag">PostgreSQL</span>
+                                <span class="modal-tech-tag">WebSocket</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Vidéo démo du projet</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Captures de l'application</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Démo en direct disponible</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contactez-moi pour une démonstration personnalisée</div>
+                        </div>`
+                    }
+                }
+            },
+            proj6: {
+                en: {
+                    title: 'DevOps: CI/CD Pipeline',
+                    company: 'Personal Project',
+                    date: '01/2024 - 02/2024',
+                    tabs: ['📝 Description', '🎥 Video', '📸 Screenshots', '🚀 Live Demo'],
+                    content: {
+                        description: `<p class="modal-description">Complete CI/CD pipeline for Java/Spring Boot applications.</p>
+                            <ul class="modal-features">
+                                <li>Jenkins automation with JUnit tests and Log4j logging</li>
+                                <li>SonarQube code quality with automated notifications</li>
+                                <li>Docker Compose deployment for Spring Boot, Angular, MySQL</li>
+                                <li>Grafana dashboards for performance monitoring</li>
+                                <li>Automated build triggers and deployment strategies</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Used</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Jenkins</span>
+                                <span class="modal-tech-tag">JUnit</span>
+                                <span class="modal-tech-tag">SonarQube</span>
+                                <span class="modal-tech-tag">Grafana</span>
+                                <span class="modal-tech-tag">Docker Compose</span>
+                                <span class="modal-tech-tag">Log4j</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Pipeline demo video</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Pipeline screenshots</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Live demo available</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contact me for demonstration</div>
+                        </div>`
+                    }
+                },
+                fr: {
+                    title: 'DevOps: Pipeline CI/CD',
+                    company: 'Projet Personnel',
+                    date: '01/2024 - 02/2024',
+                    tabs: ['📝 Description', '🎥 Vidéo', '📸 Captures', '🚀 Démo Live'],
+                    content: {
+                        description: `<p class="modal-description">Pipeline CI/CD complet pour applications Java/Spring Boot.</p>
+                            <ul class="modal-features">
+                                <li>Automatisation Jenkins avec tests JUnit et journalisation Log4j</li>
+                                <li>Qualité du code SonarQube avec notifications automatiques</li>
+                                <li>Déploiement Docker Compose pour Spring Boot, Angular, MySQL</li>
+                                <li>Tableaux de bord Grafana pour monitoring des performances</li>
+                                <li>Déclencheurs de build automatisés et stratégies de déploiement</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Utilisées</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Jenkins</span>
+                                <span class="modal-tech-tag">JUnit</span>
+                                <span class="modal-tech-tag">SonarQube</span>
+                                <span class="modal-tech-tag">Grafana</span>
+                                <span class="modal-tech-tag">Docker Compose</span>
+                                <span class="modal-tech-tag">Log4j</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Vidéo démo du pipeline</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Captures du pipeline</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Démo en direct disponible</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contactez-moi pour démonstration</div>
+                        </div>`
+                    }
+                }
+            },
+            proj7: {
+                en: {
+                    title: 'Microservices Architecture',
+                    company: 'Personal Project',
+                    date: '10/2023 - 12/2023',
+                    tabs: ['📝 Description', '🎥 Video', '📸 Screenshots', '🚀 Live Demo'],
+                    content: {
+                        description: `<p class="modal-description">Enterprise microservices architecture with service discovery and security.</p>
+                            <ul class="modal-features">
+                                <li>Eureka service discovery for dynamic registration</li>
+                                <li>API Gateway for routing and load balancing</li>
+                                <li>Keycloak integration for authentication with OAuth2.0</li>
+                                <li>Feign Client for REST communication</li>
+                                <li>Complete Docker containerization</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Used</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">Eureka</span>
+                                <span class="modal-tech-tag">API Gateway</span>
+                                <span class="modal-tech-tag">Keycloak</span>
+                                <span class="modal-tech-tag">OAuth2.0</span>
+                                <span class="modal-tech-tag">Feign Client</span>
+                                <span class="modal-tech-tag">Docker</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Architecture demo video</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Architecture diagrams</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Live demo available</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contact me for demonstration</div>
+                        </div>`
+                    }
+                },
+                fr: {
+                    title: 'Architecture Microservices',
+                    company: 'Projet Personnel',
+                    date: '10/2023 - 12/2023',
+                    tabs: ['📝 Description', '🎥 Vidéo', '📸 Captures', '🚀 Démo Live'],
+                    content: {
+                        description: `<p class="modal-description">Architecture microservices entreprise avec découverte de services et sécurité.</p>
+                            <ul class="modal-features">
+                                <li>Découverte de services Eureka pour enregistrement dynamique</li>
+                                <li>API Gateway pour routage et équilibrage de charge</li>
+                                <li>Intégration Keycloak pour authentification avec OAuth2.0</li>
+                                <li>Feign Client pour communication REST</li>
+                                <li>Conteneurisation Docker complète</li>
+                            </ul>
+                            <div class="tech-section-title">💻 Technologies Utilisées</div>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">Eureka</span>
+                                <span class="modal-tech-tag">API Gateway</span>
+                                <span class="modal-tech-tag">Keycloak</span>
+                                <span class="modal-tech-tag">OAuth2.0</span>
+                                <span class="modal-tech-tag">Feign Client</span>
+                                <span class="modal-tech-tag">Docker</span>
+                            </div>`,
+                        video: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🎥</div>
+                            <div>Vidéo démo architecture</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        screenshots: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">📸</div>
+                            <div>Diagrammes d'architecture</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                        </div>`,
+                        demo: `<div class="media-placeholder">
+                            <div class="media-placeholder-icon">🚀</div>
+                            <div>Démo en direct disponible</div>
+                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contactez-moi pour démonstration</div>
+                        </div>`
+                    }
+                }
+            }
+        };
+
+        const translations = {
+            en: {
+                langText: '🇫🇷 FR',
+                heroTitle: 'Software Architecture Engineer',
+                heroDesc: 'Passionate about full-stack development with Java, Spring Boot, Angular and ReactJS, with solid experience in CI/CD and DevOps.',
+                projectsBtn: 'Projects',
+                aboutBtn: 'About',
+                aboutTitle: 'About Me',
+                profileTitle: 'Profile',
+                profileText: 'Software architecture engineer passionate about full-stack development in Java, Spring Boot, Angular and ReactJS, with solid experience in CI/CD and DevOps. I design high-performance, scalable and user-oriented applications.',
+                educationTitle: 'Education',
+                educationDegree1: 'Software Architecture Engineering',
+                educationDegree2: 'Bachelor in Management IT',
+                projectsTitle: 'Projects & Experience',
+                proj1Title: 'GreenSpace - Spring Boot & ReactJS',
+                proj1Preview: 'Web application for user management and internal communication with complete CI/CD pipeline implementation...',
+                proj1ViewMore: 'View Full Details',
+                proj2Title: 'Geolocation App - Angular & Spring Boot',
+                proj2Preview: 'Full-stack application with Google Maps API integration for establishments consulting and reviews...',
+                proj2ViewMore: 'View Full Details',
+                proj3Title: 'Online Education Platform',
+                proj3Preview: 'Education platform for students with comprehensive course, test and resource management...',
+                proj3ViewMore: 'View Full Details',
+                proj4Title: 'Deployment Automation - .NET & Angular',
+                proj4Preview: 'Application to automate packaging and optimize deployment processes with advanced management features...',
+                proj4ViewMore: 'View Full Details',
+                proj5Title: 'Poker Planning for Scrum',
+                proj5Preview: 'Agile management application with Jira integration, voting system and statistical analysis...',
+                proj5ViewMore: 'View Full Details',
+                proj6Title: 'DevOps: CI/CD Pipeline',
+                proj6Preview: 'Complete pipeline with automated testing, code quality analysis and performance monitoring...',
+                proj6ViewMore: 'View Full Details',
+                proj7Title: 'Microservices Architecture',
+                proj7Preview: 'Enterprise architecture with service discovery, API gateway and secure authentication...',
+                proj7ViewMore: 'View Full Details',
+                footerContact: "Let's Connect!"
+            },
+            fr: {
+                langText: '🇬🇧 EN',
+                heroTitle: 'Ingénieur en Architecture Logicielle',
+                heroDesc: 'Passionné par le développement full-stack en Java, Spring Boot, Angular et ReactJS, avec une solide expérience en CI/CD et DevOps.',
+                projectsBtn: 'Projets',
+                aboutBtn: 'À Propos',
+                aboutTitle: 'À Propos de Moi',
+                profileTitle: 'Profil',
+                profileText: 'Ingénieur en architecture logicielle passionné par le développement full-stack en Java, Spring Boot, Angular et ReactJS, avec une solide expérience en CI/CD et DevOps. Je conçois des applications performantes, évolutives et orientées utilisateur.',
+                educationTitle: 'Formation',
+                educationDegree1: 'Ingénierie de l\'architecture logicielle',
+                educationDegree2: 'Licence en informatique de gestion',
+                projectsTitle: 'Projets & Expérience',
+                proj1Title: 'GreenSpace - Spring Boot & ReactJS',
+                proj1Preview: 'Application web pour gestion des utilisateurs et communication interne avec implémentation pipeline CI/CD complet...',
+                proj1ViewMore: 'Voir Tous les Détails',
+                proj2Title: 'App Géolocalisation - Angular & Spring Boot',
+                proj2Preview: 'Application full-stack avec intégration API Google Maps pour consultation établissements et avis...',
+                proj2ViewMore: 'Voir Tous les Détails',
+                proj3Title: 'Plateforme d\'Éducation en Ligne',
+                proj3Preview: 'Plateforme d\'éducation pour étudiants avec gestion complète cours, tests et ressources...',
+                proj3ViewMore: 'Voir Tous les Détails',
+                proj4Title: 'Automatisation Déploiement - .NET & Angular',
+                proj4Preview: 'Application pour automatiser le packaging et optimiser les déploiements avec fonctionnalités avancées...',
+                proj4ViewMore: 'Voir Tous les Détails',
+                proj5Title: 'Poker Planning pour Scrum',
+                proj5Preview: 'Application de gestion Agile avec intégration Jira, système de vote et analyse statistique...',
+                proj5ViewMore: 'Voir Tous les Détails',
+                proj6Title: 'DevOps: Pipeline CI/CD',
+                proj6Preview: 'Pipeline complet avec tests automatisés, analyse qualité du code et monitoring des performances...',
+                proj6ViewMore: 'Voir Tous les Détails',
+                proj7Title: 'Architecture Microservices',
+                proj7Preview: 'Architecture entreprise avec découverte de services, API gateway et authentification sécurisée...',
+                proj7ViewMore: 'Voir Tous les Détails',
+                footerContact: 'Restons Connectés !'
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'fr' : 'en';
+            updateContent();
+        }
+
+        function updateContent() {
+            const lang = translations[currentLang];
+            
+            Object.keys(lang).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = lang[key];
+                }
+            });
+
+            const projectsBtnText = document.querySelector('.projects-btn-text');
+            const aboutBtnText = document.querySelector('.about-btn-text');
+            if (projectsBtnText) projectsBtnText.textContent = lang.projectsBtn;
+            if (aboutBtnText) aboutBtnText.textContent = lang.aboutBtn;
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function openModal(itemId) {
+            const modal = document.getElementById('modal');
+            const data = modalData[itemId][currentLang];
+            
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalCompany').textContent = data.company;
+            document.getElementById('modalDate').textContent = data.date;
+            
+            const tabsContainer = document.getElementById('modalTabs');
+            tabsContainer.innerHTML = '';
+            
+            data.tabs.forEach((tab, index) => {
+                const tabButton = document.createElement('button');
+                tabButton.className = 'modal-tab' + (index === 0 ? ' active' : '');
+                tabButton.textContent = tab;
+                tabButton.onclick = () => switchModalTab(index);
+                tabsContainer.appendChild(tabButton);
+            });
+            
+            renderModalContent(0, data.content);
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOutside(event) {
+            if (event.target.id === 'modal') {
+                closeModal();
+            }
+        }
+
+        function switchModalTab(index) {
+            const tabs = document.querySelectorAll('.modal-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabs[index].classList.add('active');
+            
+            const currentModal = document.querySelector('.modal.active');
+            if (!currentModal) return;
+            
+            const title = document.getElementById('modalTitle').textContent;
+            let itemId = null;
+            
+            for (let key in modalData) {
+                if (modalData[key][currentLang].title === title) {
+                    itemId = key;
+                    break;
+                }
+            }
+            
+            if (itemId) {
+                renderModalContent(index, modalData[itemId][currentLang].content);
+            }
+        }
+
+        function renderModalContent(index, content) {
+            const contentContainer = document.getElementById('modalContent');
+            const contentKeys = Object.keys(content);
+            contentContainer.innerHTML = content[contentKeys[index]];
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.container section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'all 0.8s ease';
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
