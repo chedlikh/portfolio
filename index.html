@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com;">
     <title>Chedli Khangui - Software Engineer</title>
     <style>
         * {
@@ -10,7 +12,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         /* CSS Variables for Light Theme */
         :root {
             --primary: #4f46e5;
@@ -27,7 +29,7 @@
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             --shadow-hover: 0 20px 50px rgba(79, 70, 229, 0.1);
         }
-        
+
         /* CSS Variables for Dark Theme */
         [data-theme="dark"] {
             --primary: #6366f1;
@@ -44,7 +46,7 @@
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             --shadow-hover: 0 20px 50px rgba(99, 102, 241, 0.15);
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-light);
@@ -52,7 +54,7 @@
             overflow-x: hidden;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-        
+
         /* Theme Toggle Button */
         .theme-toggle {
             position: fixed;
@@ -73,18 +75,18 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .theme-toggle:hover {
             background: var(--primary);
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
         }
-        
+
         .theme-toggle .icon {
             font-size: 16px;
         }
-        
+
         .lang-toggle {
             position: fixed;
             top: 15px;
@@ -101,7 +103,7 @@
             color: var(--primary);
             font-size: 14px;
         }
-        
+
         .lang-toggle:hover {
             background: var(--primary);
             color: white;
@@ -121,7 +123,7 @@
             padding: 80px 20px 60px;
             transition: background 0.3s ease;
         }
-        
+
         .hero::before {
             content: '';
             position: absolute;
@@ -133,16 +135,25 @@
             right: -300px;
             animation: pulse 8s ease-in-out infinite;
         }
-        
+
         [data-theme="dark"] .hero::before {
             background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
         }
-        
+
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.1); opacity: 0.5; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.5;
+            }
         }
-        
+
         .hero-content {
             text-align: center;
             color: var(--text);
@@ -156,7 +167,7 @@
             margin-top: -50px;
 
         }
-        
+
         /* Profile Container with Skill Bubbles */
         .profile-wrapper {
             position: relative;
@@ -168,7 +179,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .profile-container {
             position: relative;
             width: 280px;
@@ -178,7 +189,7 @@
             justify-content: center;
             z-index: 2;
         }
-        
+
         .profile-image {
             width: 100%;
             height: 100%;
@@ -186,11 +197,11 @@
             filter: drop-shadow(0 10px 20px rgba(79, 70, 229, 0.2));
             transition: filter 0.3s ease;
         }
-        
+
         [data-theme="dark"] .profile-image {
             filter: drop-shadow(0 20px 40px rgba(99, 102, 241, 0.4));
         }
-        
+
         .name-display {
             font-size: 2.5rem;
             font-weight: 800;
@@ -199,7 +210,7 @@
             text-align: center;
             transition: color 0.3s ease;
         }
-        
+
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 800;
@@ -210,10 +221,17 @@
             background-clip: text;
             z-index: 10;
         }
-        
+
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         /* Skill Bubbles Around Profile - Only on sides */
@@ -225,7 +243,7 @@
             left: 0;
             pointer-events: none;
         }
-        
+
         .skill-bubble {
             position: absolute;
             background: var(--bubble-bg);
@@ -245,7 +263,7 @@
             pointer-events: all;
             animation: float 4s ease-in-out infinite;
         }
-        
+
         .skill-bubble:hover {
             background: var(--primary);
             color: white;
@@ -253,32 +271,124 @@
             box-shadow: 0 15px 40px rgba(79, 70, 229, 0.3);
             z-index: 10;
         }
-        
-        /* Different sizes for bubbles */
-        .skill-bubble.large { width: 90px; height: 90px; font-size: 13px; }
-        .skill-bubble.medium { width: 75px; height: 75px; }
-        .skill-bubble.small { width: 65px; height: 65px; }
-        
-        /* Static positions for bubbles - only on sides, not under photo */
-   .skill-bubble:nth-child(1)  { top: 18%; left: 5%; animation-delay: 0s; }       /* springboot */
-.skill-bubble:nth-child(2)  { top: 45%; left: -10%; animation-delay: 0.3s; }
-.skill-bubble:nth-child(3)  { top: 42%; left: 10%; animation-delay: 0.6s; }
-.skill-bubble:nth-child(5)  { top: 55%; left: 20%; animation-delay: 1.2s; }
-.skill-bubble:nth-child(7)  { top: 78%; left: 15%; animation-delay: 1.8s; }
-.skill-bubble:nth-child(9)  { top: 100%; left: 8%; animation-delay: 2.4s; }
-.skill-bubble:nth-child(11) { top: 90%; left: -15%; animation-delay: 3.0s; }
-.skill-bubble:nth-child(13) { top: 70%; left: 2%; animation-delay: 3.6s; }
-.skill-bubble:nth-child(15) { top: 25%; left: 25%; animation-delay: 4.2s; }
 
-/* === RIGHT SIDE (mirrored from left) === */
-.skill-bubble:nth-child(4)  { top: 18%; right: 5%; animation-delay: 0.9s; }
-.skill-bubble:nth-child(6)  { top: 45%; right: -10%; animation-delay: 1.5s; }
-.skill-bubble:nth-child(8)  { top: 42%; right: 10%; animation-delay: 2.1s; }
-.skill-bubble:nth-child(10) { top: 55%; right: 20%; animation-delay: 2.7s; }
-.skill-bubble:nth-child(12) { top: 72%; right: 10%; animation-delay: 3.3s; }
-.skill-bubble:nth-child(14) { top: 100%; right: 8%; animation-delay: 3.9s; }
-.skill-bubble:nth-child(16) { top: 90%; right: -10%; animation-delay: 4.5s; }
-           /*<div class="skill-bubble large">Spring Boot</div>
+        /* Different sizes for bubbles */
+        .skill-bubble.large {
+            width: 90px;
+            height: 90px;
+            font-size: 13px;
+        }
+
+        .skill-bubble.medium {
+            width: 75px;
+            height: 75px;
+        }
+
+        .skill-bubble.small {
+            width: 65px;
+            height: 65px;
+        }
+
+        /* Static positions for bubbles - only on sides, not under photo */
+        .skill-bubble:nth-child(1) {
+            top: 18%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        /* springboot */
+        .skill-bubble:nth-child(2) {
+            top: 45%;
+            left: -10%;
+            animation-delay: 0.3s;
+        }
+
+        .skill-bubble:nth-child(3) {
+            top: 42%;
+            left: 10%;
+            animation-delay: 0.6s;
+        }
+
+        .skill-bubble:nth-child(5) {
+            top: 55%;
+            left: 20%;
+            animation-delay: 1.2s;
+        }
+
+        .skill-bubble:nth-child(7) {
+            top: 78%;
+            left: 15%;
+            animation-delay: 1.8s;
+        }
+
+        .skill-bubble:nth-child(9) {
+            top: 100%;
+            left: 8%;
+            animation-delay: 2.4s;
+        }
+
+        .skill-bubble:nth-child(11) {
+            top: 90%;
+            left: -15%;
+            animation-delay: 3.0s;
+        }
+
+        .skill-bubble:nth-child(13) {
+            top: 70%;
+            left: 2%;
+            animation-delay: 3.6s;
+        }
+
+        .skill-bubble:nth-child(15) {
+            top: 25%;
+            left: 25%;
+            animation-delay: 4.2s;
+        }
+
+        /* === RIGHT SIDE (mirrored from left) === */
+        .skill-bubble:nth-child(4) {
+            top: 18%;
+            right: 5%;
+            animation-delay: 0.9s;
+        }
+
+        .skill-bubble:nth-child(6) {
+            top: 45%;
+            right: -10%;
+            animation-delay: 1.5s;
+        }
+
+        .skill-bubble:nth-child(8) {
+            top: 42%;
+            right: 10%;
+            animation-delay: 2.1s;
+        }
+
+        .skill-bubble:nth-child(10) {
+            top: 55%;
+            right: 20%;
+            animation-delay: 2.7s;
+        }
+
+        .skill-bubble:nth-child(12) {
+            top: 72%;
+            right: 10%;
+            animation-delay: 3.3s;
+        }
+
+        .skill-bubble:nth-child(14) {
+            top: 100%;
+            right: 8%;
+            animation-delay: 3.9s;
+        }
+
+        .skill-bubble:nth-child(16) {
+            top: 90%;
+            right: -10%;
+            animation-delay: 4.5s;
+        }
+
+        /*<div class="skill-bubble large">Spring Boot</div>
                     <div class="skill-bubble medium">Angular</div>
                     <div class="skill-bubble medium">ReactJS</div>
                     <div class="skill-bubble small">Docker</div>
@@ -307,7 +417,7 @@
             pointer-events: none;
             z-index: 3;
         }
-        
+
         .hand-btn {
             position: absolute;
             background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -328,31 +438,31 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .hand-btn::before {
             content: '';
             font-size: 16px;
         }
-        
+
         .hand-btn.left::before {
             content: '🚀';
         }
-        
+
         .hand-btn.right::before {
             content: '👨‍💻';
         }
-        
+
         .hand-btn:hover {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 12px 35px rgba(79, 70, 229, 0.4);
         }
-        
+
         .hand-btn.left {
             bottom: 28%;
             left: -6%;
             padding: 14px 18px;
         }
-        
+
         .hand-btn.right {
             bottom: 28%;
             right: -6%;
@@ -365,7 +475,7 @@
             font-weight: 400;
             transition: color 0.3s ease;
         }
-        
+
         .hero .description {
             font-size: 1.1rem;
             max-width: 900px;
@@ -374,7 +484,7 @@
             color: var(--text-gray);
             transition: color 0.3s ease;
         }
-        
+
         .contact-info {
             display: flex;
             justify-content: center;
@@ -382,7 +492,7 @@
             flex-wrap: wrap;
             margin-top: 30px;
         }
-        
+
         .contact-item {
             background: var(--bubble-bg);
             backdrop-filter: blur(10px);
@@ -393,7 +503,7 @@
             color: var(--text-gray);
             transition: all 0.3s ease;
         }
-        
+
         .contact-item:hover {
             background: var(--primary);
             color: white;
@@ -408,11 +518,11 @@
             margin: 0 auto;
             padding: 60px 20px;
         }
-        
+
         section {
             margin-bottom: 80px;
         }
-        
+
         .section-title {
             font-size: 2.5rem;
             font-weight: 700;
@@ -431,7 +541,7 @@
             gap: 25px;
             margin-bottom: 40px;
         }
-        
+
         .about-card {
             background: var(--bg-card);
             padding: 30px;
@@ -440,20 +550,20 @@
             box-shadow: var(--shadow);
             transition: all 0.4s ease;
         }
-        
+
         .about-card:hover {
             background: var(--bg-card-hover);
             border-color: var(--primary);
             transform: translateY(-8px);
             box-shadow: var(--shadow-hover);
         }
-        
+
         .about-card h3 {
             font-size: 1.3rem;
             margin-bottom: 18px;
             color: var(--primary);
         }
-        
+
         .about-card p {
             color: var(--text-gray);
             line-height: 1.7;
@@ -466,7 +576,7 @@
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
             gap: 30px;
         }
-        
+
         .project-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -477,7 +587,7 @@
             position: relative;
             box-shadow: var(--shadow);
         }
-        
+
         .project-card::before {
             content: '';
             position: absolute;
@@ -489,26 +599,26 @@
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
-        
+
         .project-card:hover {
             border-color: var(--primary);
             transform: translateY(-10px);
             box-shadow: var(--shadow-hover);
         }
-        
+
         .project-card:hover::before {
             transform: scaleX(1);
         }
-        
+
         .project-header {
             padding: 30px;
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.03), rgba(236, 72, 153, 0.03));
         }
-        
+
         [data-theme="dark"] .project-header {
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(236, 72, 153, 0.05));
         }
-        
+
         .project-date {
             color: var(--accent);
             font-weight: 600;
@@ -519,38 +629,38 @@
             background: rgba(236, 72, 153, 0.1);
             border-radius: 20px;
         }
-        
+
         .project-title {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 8px;
             color: var(--text);
         }
-        
+
         .project-company {
             color: var(--primary);
             font-weight: 600;
             font-size: 0.95rem;
         }
-        
+
         .project-body {
             padding: 0 30px 30px;
         }
-        
+
         .project-preview {
             color: var(--text-gray);
             font-size: 0.95rem;
             margin-bottom: 20px;
             line-height: 1.7;
         }
-        
+
         .project-tech-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 15px;
         }
-        
+
         .tech-tag {
             background: rgba(79, 70, 229, 0.08);
             color: var(--primary);
@@ -560,12 +670,12 @@
             font-weight: 600;
             border: 1px solid rgba(79, 70, 229, 0.15);
         }
-        
+
         [data-theme="dark"] .tech-tag {
             background: rgba(99, 102, 241, 0.08);
             border: 1px solid rgba(99, 102, 241, 0.15);
         }
-        
+
         .view-details {
             color: var(--primary);
             font-size: 0.9rem;
@@ -574,12 +684,12 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .view-details::after {
             content: '→';
             transition: transform 0.3s ease;
         }
-        
+
         .project-card:hover .view-details::after {
             transform: translateX(5px);
         }
@@ -597,19 +707,24 @@
             z-index: 2000;
             animation: fadeIn 0.3s ease;
         }
-        
+
         .modal.active {
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
-        
+
         .modal-content {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -622,18 +737,19 @@
             animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
         }
-        
+
         @keyframes slideUp {
             from {
                 opacity: 0;
                 transform: translateY(50px) scale(0.95);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
         }
-        
+
         .modal-header {
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(236, 72, 153, 0.05));
             padding: 35px;
@@ -643,11 +759,11 @@
             z-index: 10;
             backdrop-filter: blur(10px);
         }
-        
+
         [data-theme="dark"] .modal-header {
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
         }
-        
+
         .modal-close {
             position: absolute;
             top: 25px;
@@ -665,44 +781,44 @@
             color: var(--text);
             font-size: 1.8rem;
         }
-        
+
         [data-theme="dark"] .modal-close {
             background: rgba(255, 255, 255, 0.1);
         }
-        
+
         .modal-close:hover {
             background: rgba(255, 255, 255, 1);
             transform: rotate(90deg);
         }
-        
+
         [data-theme="dark"] .modal-close:hover {
             background: rgba(255, 255, 255, 0.2);
         }
-        
+
         .modal-title {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 12px;
             color: var(--text);
         }
-        
+
         .modal-subtitle {
             color: var(--primary);
             font-weight: 600;
             font-size: 1.1rem;
             margin-bottom: 10px;
         }
-        
+
         .modal-date {
             color: var(--accent);
             font-size: 0.9rem;
             font-weight: 600;
         }
-        
+
         .modal-body {
             padding: 35px;
         }
-        
+
         .modal-tabs {
             display: flex;
             gap: 12px;
@@ -710,7 +826,7 @@
             border-bottom: 2px solid var(--border);
             flex-wrap: wrap;
         }
-        
+
         .modal-tab {
             background: none;
             border: none;
@@ -723,53 +839,54 @@
             font-size: 0.95rem;
             position: relative;
         }
-        
+
         .modal-tab.active {
             color: var(--primary);
             border-bottom-color: var(--primary);
         }
-        
+
         .modal-tab:hover {
             color: var(--primary);
             background: rgba(79, 70, 229, 0.05);
         }
-        
+
         [data-theme="dark"] .modal-tab:hover {
             background: rgba(99, 102, 241, 0.05);
         }
-        
+
         .modal-tab-content {
             display: none;
         }
-        
+
         .modal-tab-content.active {
             display: block;
             animation: fadeInContent 0.4s ease;
         }
-        
+
         @keyframes fadeInContent {
             from {
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         .modal-description {
             color: var(--text-gray);
             line-height: 1.9;
             font-size: 1rem;
             margin-bottom: 25px;
         }
-        
+
         .modal-features {
             list-style: none;
             padding: 0;
         }
-        
+
         .modal-features li {
             padding: 14px 0;
             padding-left: 35px;
@@ -778,7 +895,7 @@
             font-size: 0.95rem;
             line-height: 1.7;
         }
-        
+
         .modal-features li::before {
             content: '✓';
             position: absolute;
@@ -787,14 +904,14 @@
             font-weight: bold;
             font-size: 1.3rem;
         }
-        
+
         .modal-tech-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
             margin-top: 25px;
         }
-        
+
         .modal-tech-tag {
             background: rgba(79, 70, 229, 0.08);
             color: var(--primary);
@@ -804,12 +921,12 @@
             font-weight: 600;
             border: 1px solid rgba(79, 70, 229, 0.2);
         }
-        
+
         [data-theme="dark"] .modal-tech-tag {
             background: rgba(99, 102, 241, 0.1);
             border: 1px solid rgba(99, 102, 241, 0.3);
         }
-        
+
         .tech-section-title {
             color: var(--primary);
             font-size: 1.1rem;
@@ -817,26 +934,30 @@
             margin-top: 25px;
             margin-bottom: 15px;
         }
-        
+
         .media-placeholder {
-            background: rgba(79, 70, 229, 0.03);
-            padding: 80px 20px;
-            border-radius: 20px;
-            text-align: center;
-            color: var(--primary);
-            font-weight: 600;
-            border: 2px dashed var(--border);
-            font-size: 1.1rem;
-        }
-        
-        [data-theme="dark"] .media-placeholder {
-            background: rgba(99, 102, 241, 0.05);
-        }
-        
-        .media-placeholder-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    background: rgba(79, 70, 229, 0.03);
+    border-radius: 20px;
+    text-align: center;
+    color: var(--primary);
+    font-weight: 600;
+    border: 2px dashed var(--border);
+    font-size: 1.1rem;
+}
+[data-theme="dark"] .media-placeholder {
+    background: rgba(99, 102, 241, 0.05);
+}
+.media-placeholder iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
         /* Footer */
         footer {
@@ -847,7 +968,7 @@
             border-top: 1px solid var(--border);
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-        
+
         footer h3 {
             font-size: 1.5rem;
             margin-bottom: 20px;
@@ -856,7 +977,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         .social-links {
             display: flex;
             justify-content: center;
@@ -864,7 +985,7 @@
             margin-top: 20px;
             flex-wrap: wrap;
         }
-        
+
         .social-links a {
             color: var(--text);
             text-decoration: none;
@@ -875,18 +996,18 @@
             font-size: 0.95rem;
             border: 1px solid var(--border);
         }
-        
+
         [data-theme="dark"] .social-links a {
             background: rgba(99, 102, 241, 0.1);
         }
-        
+
         .social-links a:hover {
             background: var(--primary);
             color: white;
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
         }
-        
+
         footer p {
             margin-top: 25px;
             color: var(--text-gray);
@@ -897,47 +1018,61 @@
         .modal-content::-webkit-scrollbar {
             width: 10px;
         }
-        
+
         .modal-content::-webkit-scrollbar-track {
             background: var(--bg-light);
         }
-        
+
         .modal-content::-webkit-scrollbar-thumb {
             background: var(--primary);
             border-radius: 10px;
         }
 
         /* RESPONSIVE STYLES */
-        
+
         /* Tablets (landscape and portrait) */
         @media (max-width: 1024px) {
             .profile-wrapper {
                 max-width: 900px;
                 height: 350px;
             }
-            
+
             .profile-container {
                 width: 240px;
                 height: 240px;
             }
-            
+
             .hand-buttons {
                 width: 240px;
                 height: 240px;
             }
-            
-            .skill-bubble.large { width: 75px; height: 75px; font-size: 11px; }
-            .skill-bubble.medium { width: 65px; height: 65px; font-size: 11px; }
-            .skill-bubble.small { width: 55px; height: 55px; font-size: 10px; }
-            
+
+            .skill-bubble.large {
+                width: 75px;
+                height: 75px;
+                font-size: 11px;
+            }
+
+            .skill-bubble.medium {
+                width: 65px;
+                height: 65px;
+                font-size: 11px;
+            }
+
+            .skill-bubble.small {
+                width: 55px;
+                height: 55px;
+                font-size: 10px;
+            }
+
             .projects-grid {
                 grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             }
-            
+
             .hero h1 {
                 font-size: 2.8rem;
             }
-            
+
             .section-title {
                 font-size: 2rem;
             }
@@ -949,122 +1084,137 @@
                 padding: 70px 15px 40px;
                 min-height: auto;
             }
-            
+
             .hero h1 {
                 font-size: 2.2rem;
                 z-index: 2;
                 margin-bottom: 10px;
             }
-            
+
             .name-display {
                 font-size: 1.8rem;
             }
-            
+
             .hero .subtitle {
                 font-size: 1.2rem;
                 margin-bottom: 15px;
             }
-            
+
             .hero .description {
                 font-size: 0.95rem;
                 padding: 0 10px;
             }
-            
+
             .profile-wrapper {
                 max-width: 500px;
                 height: 320px;
                 margin-bottom: 30px;
             }
-            
+
             .profile-container {
                 width: 200px;
                 height: 200px;
             }
-            
+
             .hand-buttons {
                 width: 200px;
                 height: 200px;
             }
-            
+
             .hand-btn {
                 padding: 10px 16px;
                 font-size: 11px;
                 gap: 5px;
             }
-            
+
             .hand-btn::before {
                 font-size: 14px;
             }
-            
+
             .hand-btn.left {
                 bottom: 24%;
                 left: -12%;
             }
-            
+
             .hand-btn.right {
                 bottom: 22%;
                 right: -10%;
             }
-            
+
             .skill-bubble {
                 font-size: 9px;
                 padding: 5px;
             }
-            
-            .skill-bubble.large { width: 60px; height: 60px; font-size: 10px; }
-            .skill-bubble.medium { width: 52px; height: 52px; font-size: 9px; }
-            .skill-bubble.small { width: 46px; height: 46px; font-size: 8px; }
-            
+
+            .skill-bubble.large {
+                width: 60px;
+                height: 60px;
+                font-size: 10px;
+            }
+
+            .skill-bubble.medium {
+                width: 52px;
+                height: 52px;
+                font-size: 9px;
+            }
+
+            .skill-bubble.small {
+                width: 46px;
+                height: 46px;
+                font-size: 8px;
+            }
+
             .contact-info {
                 gap: 12px;
                 margin-top: 25px;
             }
-            
+
             .contact-item {
                 font-size: 0.85rem;
                 padding: 10px 18px;
             }
-            
+
             .container {
                 padding: 40px 15px;
             }
-            
+
             .section-title {
                 font-size: 1.8rem;
                 margin-bottom: 30px;
             }
-            
+
             .about-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-            
+
             .about-card {
                 padding: 25px;
             }
-            
+
             .projects-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-            
-            .project-header, .project-body {
+
+            .project-header,
+            .project-body {
                 padding: 20px;
             }
-            
+
             .project-title {
                 font-size: 1.3rem;
             }
-            
+
             .modal-content {
                 border-radius: 16px;
                 max-height: 85vh;
             }
-            
+
             .modal-header {
                 padding: 25px 20px;
             }
-            
+
             .modal-close {
                 width: 35px;
                 height: 35px;
@@ -1072,72 +1222,73 @@
                 right: 20px;
                 font-size: 1.5rem;
             }
-            
+
             .modal-title {
                 font-size: 1.5rem;
                 padding-right: 40px;
             }
-            
+
             .modal-subtitle {
                 font-size: 1rem;
             }
-            
+
             .modal-body {
                 padding: 25px 20px;
             }
-            
+
             .modal-tabs {
                 gap: 8px;
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
                 scrollbar-width: none;
             }
-            
+
             .modal-tabs::-webkit-scrollbar {
                 display: none;
             }
-            
+
             .modal-tab {
                 padding: 12px 18px;
                 font-size: 0.85rem;
                 white-space: nowrap;
                 flex-shrink: 0;
             }
-            
+
             .modal-description {
                 font-size: 0.9rem;
             }
-            
+
             .modal-features li {
                 font-size: 0.85rem;
                 padding: 10px 0;
                 padding-left: 30px;
             }
-            
+
             .modal-tech-tag {
                 font-size: 0.8rem;
                 padding: 8px 14px;
             }
-            
+
             .media-placeholder {
                 padding: 60px 15px;
                 font-size: 1rem;
             }
-            
+
             .media-placeholder-icon {
                 font-size: 3rem;
             }
-            
-            .theme-toggle, .lang-toggle {
+
+            .theme-toggle,
+            .lang-toggle {
                 top: 10px;
                 padding: 8px 18px;
                 font-size: 12px;
             }
-            
+
             .theme-toggle {
                 left: 10px;
             }
-            
+
             .lang-toggle {
                 right: 10px;
             }
@@ -1148,138 +1299,153 @@
             .hero {
                 padding: 60px 10px 30px;
             }
-            
+
             .hero h1 {
                 font-size: 1.8rem;
             }
-            
+
             .name-display {
                 font-size: 1.5rem;
             }
-            
+
             .hero .subtitle {
                 font-size: 1rem;
             }
-            
+
             .hero .description {
                 font-size: 0.85rem;
                 line-height: 1.6;
             }
-            
+
             .profile-wrapper {
                 max-width: 100%;
                 height: 280px;
                 margin-bottom: 25px;
             }
-            
+
             .profile-container {
                 width: 160px;
                 height: 160px;
             }
-            
+
             .hand-buttons {
                 width: 160px;
                 height: 160px;
             }
-            
+
             .hand-btn {
                 padding: 8px 12px;
                 font-size: 9px;
                 gap: 4px;
                 letter-spacing: 0.5px;
             }
-            
+
             .hand-btn::before {
                 font-size: 12px;
             }
-            
+
             .hand-btn.left {
                 bottom: 20%;
                 left: -15%;
             }
-            
+
             .hand-btn.right {
                 bottom: 18%;
                 right: -12%;
             }
-            
+
             .skill-bubble {
                 font-size: 7px;
                 padding: 3px;
             }
-            
-            .skill-bubble.large { width: 48px; height: 48px; font-size: 8px; }
-            .skill-bubble.medium { width: 42px; height: 42px; font-size: 7px; }
-            .skill-bubble.small { width: 38px; height: 38px; font-size: 7px; }
-            
+
+            .skill-bubble.large {
+                width: 48px;
+                height: 48px;
+                font-size: 8px;
+            }
+
+            .skill-bubble.medium {
+                width: 42px;
+                height: 42px;
+                font-size: 7px;
+            }
+
+            .skill-bubble.small {
+                width: 38px;
+                height: 38px;
+                font-size: 7px;
+            }
+
             .contact-info {
                 gap: 10px;
             }
-            
+
             .contact-item {
                 font-size: 0.75rem;
                 padding: 8px 14px;
             }
-            
+
             .container {
                 padding: 30px 10px;
             }
-            
+
             .section-title {
                 font-size: 1.5rem;
                 margin-bottom: 25px;
             }
-            
+
             .about-card {
                 padding: 20px;
             }
-            
+
             .about-card h3 {
                 font-size: 1.1rem;
             }
-            
+
             .about-card p {
                 font-size: 0.85rem;
             }
-            
-            .project-header, .project-body {
+
+            .project-header,
+            .project-body {
                 padding: 18px;
             }
-            
+
             .project-title {
                 font-size: 1.1rem;
             }
-            
+
             .project-date {
                 font-size: 0.75rem;
                 padding: 4px 10px;
             }
-            
+
             .project-company {
                 font-size: 0.85rem;
             }
-            
+
             .project-preview {
                 font-size: 0.85rem;
             }
-            
+
             .tech-tag {
                 font-size: 0.7rem;
                 padding: 4px 10px;
             }
-            
+
             .view-details {
                 font-size: 0.8rem;
             }
-            
+
             .modal.active {
                 padding: 10px;
             }
-            
+
             .modal-header {
                 padding: 20px 15px;
             }
-            
+
             .modal-close {
                 width: 32px;
                 height: 32px;
@@ -1287,43 +1453,44 @@
                 right: 15px;
                 font-size: 1.3rem;
             }
-            
+
             .modal-title {
                 font-size: 1.2rem;
                 padding-right: 35px;
             }
-            
+
             .modal-subtitle {
                 font-size: 0.9rem;
             }
-            
+
             .modal-date {
                 font-size: 0.8rem;
             }
-            
+
             .modal-body {
                 padding: 20px 15px;
             }
-            
+
             .modal-tab {
                 padding: 10px 14px;
                 font-size: 0.8rem;
             }
-            
+
             .tech-section-title {
                 font-size: 1rem;
             }
-            
+
             footer h3 {
                 font-size: 1.2rem;
             }
-            
+
             .social-links a {
                 font-size: 0.85rem;
                 padding: 10px 18px;
             }
-            
-            .theme-toggle, .lang-toggle {
+
+            .theme-toggle,
+            .lang-toggle {
                 padding: 6px 14px;
                 font-size: 11px;
             }
@@ -1334,33 +1501,47 @@
             .hero h1 {
                 font-size: 1.5rem;
             }
-            
+
             .name-display {
                 font-size: 1.3rem;
             }
-            
+
             .hero .subtitle {
                 font-size: 0.9rem;
             }
-            
+
             .profile-container {
                 width: 140px;
                 height: 140px;
             }
-            
+
             .hand-buttons {
                 width: 140px;
                 height: 140px;
             }
-            
+
             .hand-btn {
                 padding: 6px 10px;
                 font-size: 8px;
             }
-            
-            .skill-bubble.large { width: 40px; height: 40px; font-size: 7px; }
-            .skill-bubble.medium { width: 36px; height: 36px; font-size: 6px; }
-            .skill-bubble.small { width: 32px; height: 32px; font-size: 6px; }
+
+            .skill-bubble.large {
+                width: 40px;
+                height: 40px;
+                font-size: 7px;
+            }
+
+            .skill-bubble.medium {
+                width: 36px;
+                height: 36px;
+                font-size: 6px;
+            }
+
+            .skill-bubble.small {
+                width: 32px;
+                height: 32px;
+                font-size: 6px;
+            }
         }
 
         /* Landscape orientation fixes for mobile */
@@ -1369,24 +1550,35 @@
                 min-height: auto;
                 padding: 40px 20px 30px;
             }
-            
+
             .profile-wrapper {
                 height: 250px;
             }
-            
+
             .profile-container {
                 width: 180px;
                 height: 180px;
             }
-            
+
             .hand-buttons {
                 width: 180px;
                 height: 180px;
             }
-            
-            .skill-bubble.large { width: 50px; height: 50px; }
-            .skill-bubble.medium { width: 44px; height: 44px; }
-            .skill-bubble.small { width: 38px; height: 38px; }
+
+            .skill-bubble.large {
+                width: 50px;
+                height: 50px;
+            }
+
+            .skill-bubble.medium {
+                width: 44px;
+                height: 44px;
+            }
+
+            .skill-bubble.small {
+                width: 38px;
+                height: 38px;
+            }
         }
 
         /* Touch device improvements */
@@ -1395,21 +1587,62 @@
                 background: var(--primary);
                 transform: scale(0.95);
             }
-            
+
             .hand-btn:active {
                 transform: scale(0.95);
             }
-            
+
             .project-card:active {
                 transform: translateY(-5px);
             }
-            
+
             .modal-tab:active {
                 background: rgba(79, 70, 229, 0.1);
             }
         }
+
+        .project-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-card-hover);
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+        }
+
+        .project-tab {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-gray);
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            position: relative;
+        }
+
+        .project-tab.active {
+            color: var(--primary);
+            background: var(--bg-card);
+        }
+
+        .project-tab:hover:not(.active) {
+            background: rgba(79, 70, 229, 0.05);
+            color: var(--primary);
+        }
+
+        .project-tab-content {
+            display: none;
+        }
+
+        .project-tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
     </style>
 </head>
+
 <body>
     <script>
         // Prevent zoom on double-tap for iOS
@@ -1455,14 +1688,14 @@
                     <div class="skill-bubble small">PostgreSQL</div>
                     <div class="skill-bubble medium">SQL Server</div>
                     <div class="skill-bubble medium">SCRUM</div>
-                 
+
                     <!-- Removed bubbles under the photo -->
                 </div>
 
                 <!-- Profile Image Container -->
                 <div class="profile-container">
                     <img src="./erasebg-transformed.png" alt="Chedli Khangui" class="profile-image">
-                    
+
                     <!-- Hand Buttons Fixed on Hands -->
                     <div class="hand-buttons">
                         <button class="hand-btn left" onclick="scrollToSection('projects')">
@@ -1474,15 +1707,16 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Name displayed directly under the photo -->
-            
+
             <h1 id="heroName">Chedli Khangui</h1>
             <div class="subtitle" id="heroTitle">Software Architecture Engineer</div>
             <p class="description" id="heroDesc">
-                Passionate about full-stack development with Java, Spring Boot, Angular and ReactJS, with solid experience in DevOps.
+                Passionate about full-stack development with Java, Spring Boot, Angular and ReactJS, with solid
+                experience in DevOps.
             </p>
-            
+
             <div class="contact-info">
                 <div class="contact-item">📧 chedli.khangui@gmail.com</div>
                 <div class="contact-item">📱 +216 50837010</div>
@@ -1500,20 +1734,25 @@
                 <div class="about-card">
                     <h3 id="profileTitle">Profile</h3>
                     <p id="profileText">
-                        Software architecture engineer passionate about full-stack development in Java, Spring Boot, Angular and ReactJS, with solid experience in CI/CD and DevOps. I design high-performance, scalable and user-oriented applications.
+                        Software architecture engineer passionate about full-stack development in Java, Spring Boot,
+                        Angular and ReactJS, with solid experience in CI/CD and DevOps. I design high-performance,
+                        scalable and user-oriented applications.
                     </p>
                 </div>
-                
+
                 <div class="about-card">
                     <h3 id="educationTitle">Education</h3>
                     <div style="margin-bottom: 18px;">
                         <div style="font-weight: 700; color: var(--primary); font-size: 1rem;">ESPRIT</div>
-                        <div style="color: var(--text-gray); font-size: 0.9rem;" id="educationDegree1">Software Architecture Engineering</div>
+                        <div style="color: var(--text-gray); font-size: 0.9rem;" id="educationDegree1">Software
+                            Architecture Engineering</div>
                         <div style="color: var(--accent); font-size: 0.8rem;">2022 - 2025</div>
                     </div>
                     <div>
-                        <div style="font-weight: 700; color: var(--primary); font-size: 1rem;">ESPRIT School of Business</div>
-                        <div style="color: var(--text-gray); font-size: 0.9rem;" id="educationDegree2">Bachelor in Management IT</div>
+                        <div style="font-weight: 700; color: var(--primary); font-size: 1rem;">ESPRIT School of Business
+                        </div>
+                        <div style="color: var(--text-gray); font-size: 0.9rem;" id="educationDegree2">Bachelor in
+                            Management IT</div>
                         <div style="color: var(--accent); font-size: 0.8rem;">2019 - 2022</div>
                     </div>
                 </div>
@@ -1526,13 +1765,22 @@
             <div class="projects-grid">
                 <!-- Project 1: GreenSpace -->
                 <div class="project-card" onclick="openModal('proj1')">
+
                     <div class="project-header">
                         <span class="project-date">01/2025 - 07/2025</span>
                         <h3 class="project-title" id="proj1Title">GreenSpace - Spring Boot & ReactJS</h3>
                         <div class="project-company">Biwaï</div>
+
                     </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
                     <div class="project-body">
-                        <p class="project-preview" id="proj1Preview">Web application for user management and internal communication with complete CI/CD pipeline implementation...</p>
+                        <p class="project-preview" id="proj1Preview">Web application for user management and internal
+                            communication with complete CI/CD pipeline implementation...</p>
                         <div class="project-tech-tags">
                             <span class="tech-tag">Spring Boot</span>
                             <span class="tech-tag">ReactJS</span>
@@ -1552,8 +1800,15 @@
                         <h3 class="project-title" id="proj2Title">Geolocation App - Angular & Spring Boot</h3>
                         <div class="project-company">NowWeProg</div>
                     </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
                     <div class="project-body">
-                        <p class="project-preview" id="proj2Preview">Full-stack application with Google Maps API integration for establishments consulting and reviews...</p>
+                        <p class="project-preview" id="proj2Preview">Full-stack application with Google Maps API
+                            integration for establishments consulting and reviews...</p>
                         <div class="project-tech-tags">
                             <span class="tech-tag">Spring Boot</span>
                             <span class="tech-tag">Angular</span>
@@ -1571,8 +1826,15 @@
                         <h3 class="project-title" id="proj3Title">Online Education Platform</h3>
                         <div class="project-company">NowWeProg</div>
                     </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
                     <div class="project-body">
-                        <p class="project-preview" id="proj3Preview">Education platform for students with comprehensive course, test and resource management...</p>
+                        <p class="project-preview" id="proj3Preview">Education platform for students with comprehensive
+                            course, test and resource management...</p>
                         <div class="project-tech-tags">
                             <span class="tech-tag">Spring Boot</span>
                             <span class="tech-tag">Angular</span>
@@ -1590,8 +1852,15 @@
                         <h3 class="project-title" id="proj4Title">Deployment Automation - .NET & Angular</h3>
                         <div class="project-company">Axe Finance</div>
                     </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
                     <div class="project-body">
-                        <p class="project-preview" id="proj4Preview">Application to automate packaging and optimize deployment processes with advanced management features...</p>
+                        <p class="project-preview" id="proj4Preview">Application to automate packaging and optimize
+                            deployment processes with advanced management features...</p>
                         <div class="project-tech-tags">
                             <span class="tech-tag">.NET</span>
                             <span class="tech-tag">Angular</span>
@@ -1608,8 +1877,15 @@
                         <h3 class="project-title" id="proj5Title">Poker Planning for Scrum</h3>
                         <div class="project-company">Personal Project</div>
                     </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
                     <div class="project-body">
-                        <p class="project-preview" id="proj5Preview">Agile management application with Jira integration, voting system and statistical analysis...</p>
+                        <p class="project-preview" id="proj5Preview">Agile management application with Jira integration,
+                            voting system and statistical analysis...</p>
                         <div class="project-tech-tags">
                             <span class="tech-tag">Spring Boot</span>
                             <span class="tech-tag">Angular</span>
@@ -1627,8 +1903,15 @@
                         <h3 class="project-title" id="proj6Title">DevOps: CI/CD Pipeline</h3>
                         <div class="project-company">Personal Project</div>
                     </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
                     <div class="project-body">
-                        <p class="project-preview" id="proj6Preview">Complete pipeline with automated testing, code quality analysis and performance monitoring...</p>
+                        <p class="project-preview" id="proj6Preview">Complete pipeline with automated testing, code
+                            quality analysis and performance monitoring...</p>
                         <div class="project-tech-tags">
                             <span class="tech-tag">Jenkins</span>
                             <span class="tech-tag">Docker</span>
@@ -1646,8 +1929,15 @@
                         <h3 class="project-title" id="proj7Title">Microservices Architecture</h3>
                         <div class="project-company">Personal Project</div>
                     </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
                     <div class="project-body">
-                        <p class="project-preview" id="proj7Preview">Enterprise architecture with service discovery, API gateway and secure authentication...</p>
+                        <p class="project-preview" id="proj7Preview">Enterprise architecture with service discovery, API
+                            gateway and secure authentication...</p>
                         <div class="project-tech-tags">
                             <span class="tech-tag">Spring Boot</span>
                             <span class="tech-tag">Eureka</span>
@@ -1691,7 +1981,7 @@
     <script>
         let currentLang = 'en';
         let currentTheme = 'light';
-        
+
         // Initialize theme from localStorage or default to light
         function initializeTheme() {
             const savedTheme = localStorage.getItem('theme');
@@ -1701,7 +1991,7 @@
                 updateThemeButton();
             }
         }
-        
+
         // Toggle between light and dark themes
         function toggleTheme() {
             currentTheme = currentTheme === 'light' ? 'dark' : 'light';
@@ -1709,12 +1999,12 @@
             localStorage.setItem('theme', currentTheme);
             updateThemeButton();
         }
-        
+
         // Update theme toggle button text and icon
         function updateThemeButton() {
             const themeIcon = document.getElementById('themeIcon');
             const themeText = document.getElementById('themeText');
-            
+
             if (currentTheme === 'light') {
                 themeIcon.textContent = '🌙';
                 themeText.textContent = 'Dark Mode';
@@ -1723,90 +2013,112 @@
                 themeText.textContent = 'Light Mode';
             }
         }
-        
+
         const modalData = {
             proj1: {
-                en: {
-                    title: 'GreenSpace - Spring Boot & ReactJS',
-                    company: 'Biwaï',
-                    date: '01/2025 - 07/2025',
-                    tabs: ['📝 Description', '🎥 Video', '📸 Screenshots', '🚀 Live Demo'],
-                    content: {
-                        description: `<p class="modal-description">Development of GreenSpace web application in Spring Boot and ReactJS for comprehensive user management and internal communication.</p>
-                            <ul class="modal-features">
-                                <li>Implemented complete CI/CD pipeline with Docker, Jenkins and SonarQube</li>
-                                <li>Developed instant messaging system with real-time notifications</li>
-                                <li>Created news module with reactions, comments and sharing features</li>
-                                <li>Ensured continuous code quality and automated deployments</li>
-                            </ul>
-                            <div class="tech-section-title">💻 Technologies Used</div>
-                            <div class="modal-tech-grid">
-                                <span class="modal-tech-tag">SCRUM</span>
-                                <span class="modal-tech-tag">Spring Boot</span>
-                                <span class="modal-tech-tag">ReactJS</span>
-                                <span class="modal-tech-tag">MySQL</span>
-                                <span class="modal-tech-tag">Docker</span>
-                                <span class="modal-tech-tag">Jenkins</span>
-                                <span class="modal-tech-tag">SonarQube</span>
-                            </div>`,
-                        video: `<div class="media-placeholder">
-                            <div class="media-placeholder-icon">🎥</div>
-                            <div>Project demonstration video</div>
-                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
-                        </div>`,
-                        screenshots: `<div class="media-placeholder">
-                            <div class="media-placeholder-icon">📸</div>
-                            <div>Project screenshots gallery</div>
-                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
-                        </div>`,
-                        demo: `<div class="media-placeholder">
-                            <div class="media-placeholder-icon">🚀</div>
-                            <div>Live demo available</div>
-                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contact me to schedule a personalized demonstration</div>
-                        </div>`
-                    }
-                },
-                fr: {
-                    title: 'GreenSpace - Spring Boot & ReactJS',
-                    company: 'Biwaï',
-                    date: '01/2025 - 07/2025',
-                    tabs: ['📝 Description', '🎥 Vidéo', '📸 Captures', '🚀 Démo Live'],
-                    content: {
-                        description: `<p class="modal-description">Développement de l'application web GreenSpace en Spring Boot et ReactJS pour la gestion complète des utilisateurs et la communication interne.</p>
-                            <ul class="modal-features">
-                                <li>Mise en place d'un pipeline CI/CD complet avec Docker, Jenkins et SonarQube</li>
-                                <li>Développement d'un système de messagerie instantanée avec notifications temps réel</li>
-                                <li>Création d'un module actualités avec réactions, commentaires et partages</li>
-                                <li>Assurance de la qualité du code et déploiements automatisés continus</li>
-                            </ul>
-                            <div class="tech-section-title">💻 Technologies Utilisées</div>
-                            <div class="modal-tech-grid">
-                                <span class="modal-tech-tag">SCRUM</span>
-                                <span class="modal-tech-tag">Spring Boot</span>
-                                <span class="modal-tech-tag">ReactJS</span>
-                                <span class="modal-tech-tag">MySQL</span>
-                                <span class="modal-tech-tag">Docker</span>
-                                <span class="modal-tech-tag">Jenkins</span>
-                                <span class="modal-tech-tag">SonarQube</span>
-                            </div>`,
-                        video: `<div class="media-placeholder">
-                            <div class="media-placeholder-icon">🎥</div>
-                            <div>Vidéo de démonstration du projet</div>
-                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
-                        </div>`,
-                        screenshots: `<div class="media-placeholder">
-                            <div class="media-placeholder-icon">📸</div>
-                            <div>Galerie de captures d'écran</div>
-                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
-                        </div>`,
-                        demo: `<div class="media-placeholder">
-                            <div class="media-placeholder-icon">🚀</div>
-                            <div>Démo en direct disponible</div>
-                            <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contactez-moi pour planifier une démonstration personnalisée</div>
-                        </div>`
-                    }
-                }
-            },
+        en: {
+            title: 'GreenSpace - Spring Boot & ReactJS',
+            company: 'Biwaï',
+            date: '01/2025 - 07/2025',
+            tabs: ['📝 Description', '🎥 Video', '📸 Screenshots', '🚀 Live Demo'],
+            content: {
+                description: `<p class="modal-description">Development of GreenSpace web application in Spring Boot and ReactJS for comprehensive user management and internal communication.</p>
+                    <ul class="modal-features">
+                        <li>Implemented complete CI/CD pipeline with Docker, Jenkins and SonarQube</li>
+                        <li>Developed instant messaging system with real-time notifications</li>
+                        <li>Created news module with reactions, comments and sharing features</li>
+                        <li>Ensured continuous code quality and automated deployments</li>
+                    </ul>
+                    <div class="tech-section-title">💻 Technologies Used</div>
+                    <div class="modal-tech-grid">
+                        <span class="modal-tech-tag">SCRUM</span>
+                        <span class="modal-tech-tag">Spring Boot</span>
+                        <span class="modal-tech-tag">ReactJS</span>
+                        <span class="modal-tech-tag">MySQL</span>
+                        <span class="modal-tech-tag">Docker</span>
+                        <span class="modal-tech-tag">Jenkins</span>
+                        <span class="modal-tech-tag">SonarQube</span>
+                    </div>`,
+                video: `<div class="media-placeholder">
+                    <iframe
+                        width="100%"
+                        height="315"
+                        src="https://www.youtube-nocookie.com/embed/-eek9Y1T7Qo?rel=0&enablejsapi=1"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                    <div style="margin-top: 20px; font-size: 0.9rem;">
+                        <a href="https://www.youtube.com/watch?v=-eek9Y1T7Qo" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                            Watch on YouTube if the video doesn't load
+                        </a>
+                    </div>
+                </div>`,
+                screenshots: `<div class="media-placeholder">
+                    <div class="media-placeholder-icon">📸</div>
+                    <div>Project screenshots gallery</div>
+                    <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Available upon request</div>
+                </div>`,
+                demo: `<div class="media-placeholder">
+                    <div class="media-placeholder-icon">🚀</div>
+                    <div>Live demo available</div>
+                    <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contact me to schedule a personalized demonstration</div>
+                </div>`
+            }
+        },
+        fr: {
+            title: 'GreenSpace - Spring Boot & ReactJS',
+            company: 'Biwaï',
+            date: '01/2025 - 07/2025',
+            tabs: ['📝 Description', '🎥 Vidéo', '📸 Captures', '🚀 Démo Live'],
+            content: {
+                description: `<p class="modal-description">Développement de l'application web GreenSpace en Spring Boot et ReactJS pour la gestion complète des utilisateurs et la communication interne.</p>
+                    <ul class="modal-features">
+                        <li>Mise en place d'un pipeline CI/CD complet avec Docker, Jenkins et SonarQube</li>
+                        <li>Développement d'un système de messagerie instantanée avec notifications temps réel</li>
+                        <li>Création d'un module actualités avec réactions, commentaires et partages</li>
+                        <li>Assurance de la qualité du code et déploiements automatisés continus</li>
+                    </ul>
+                    <div class="tech-section-title">💻 Technologies Utilisées</div>
+                    <div class="modal-tech-grid">
+                        <span class="modal-tech-tag">SCRUM</span>
+                        <span class="modal-tech-tag">Spring Boot</span>
+                        <span class="modal-tech-tag">ReactJS</span>
+                        <span class="modal-tech-tag">MySQL</span>
+                        <span class="modal-tech-tag">Docker</span>
+                        <span class="modal-tech-tag">Jenkins</span>
+                        <span class="modal-tech-tag">SonarQube</span>
+                    </div>`,
+                video: `<div class="media-placeholder">
+                    <iframe
+                        width="100%"
+                        height="315"
+                        src="https://www.youtube-nocookie.com/embed/-eek9Y1T7Qo?rel=0&enablejsapi=1"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                    <div style="margin-top: 20px; font-size: 0.9rem;">
+                        <a href="https://www.youtube.com/watch?v=-eek9Y1T7Qo" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                            Regarder sur YouTube si la vidéo ne se charge pas
+                        </a>
+                    </div>
+                </div>`,
+                screenshots: `<div class="media-placeholder">
+                    <div class="media-placeholder-icon">📸</div>
+                    <div>Galerie de captures d'écran</div>
+                    <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Disponible sur demande</div>
+                </div>`,
+                demo: `<div class="media-placeholder">
+                    <div class="media-placeholder-icon">🚀</div>
+                    <div>Démo en direct disponible</div>
+                    <div style="margin-top: 12px; font-size: 0.9rem; color: var(--text-gray);">Contactez-moi pour planifier une démonstration personnalisée</div>
+                </div>`
+            }
+        }
+    },
             proj2: {
                 en: {
                     title: 'Geolocation App - Angular & Spring Boot',
@@ -2367,7 +2679,7 @@
 
         function updateContent() {
             const lang = translations[currentLang];
-            
+
             Object.keys(lang).forEach(key => {
                 const element = document.getElementById(key);
                 if (element) {
@@ -2391,14 +2703,14 @@
         function openModal(itemId) {
             const modal = document.getElementById('modal');
             const data = modalData[itemId][currentLang];
-            
+
             document.getElementById('modalTitle').textContent = data.title;
             document.getElementById('modalCompany').textContent = data.company;
             document.getElementById('modalDate').textContent = data.date;
-            
+
             const tabsContainer = document.getElementById('modalTabs');
             tabsContainer.innerHTML = '';
-            
+
             data.tabs.forEach((tab, index) => {
                 const tabButton = document.createElement('button');
                 tabButton.className = 'modal-tab' + (index === 0 ? ' active' : '');
@@ -2406,9 +2718,9 @@
                 tabButton.onclick = () => switchModalTab(index);
                 tabsContainer.appendChild(tabButton);
             });
-            
+
             renderModalContent(0, data.content);
-            
+
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -2429,20 +2741,20 @@
             const tabs = document.querySelectorAll('.modal-tab');
             tabs.forEach(tab => tab.classList.remove('active'));
             tabs[index].classList.add('active');
-            
+
             const currentModal = document.querySelector('.modal.active');
             if (!currentModal) return;
-            
+
             const title = document.getElementById('modalTitle').textContent;
             let itemId = null;
-            
+
             for (let key in modalData) {
                 if (modalData[key][currentLang].title === title) {
                     itemId = key;
                     break;
                 }
             }
-            
+
             if (itemId) {
                 renderModalContent(index, modalData[itemId][currentLang].content);
             }
@@ -2454,18 +2766,18 @@
             contentContainer.innerHTML = content[contentKeys[index]];
         }
 
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 closeModal();
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Initialize theme
             initializeTheme();
-            
+
             const sections = document.querySelectorAll('.container section');
-            
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -2484,4 +2796,5 @@
         });
     </script>
 </body>
+
 </html>
