@@ -1943,7 +1943,7 @@
         function initializeTheme() {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme) {
-                currentTheme = savedTheme;
+                currentTheme = savedTheme || 'dark'; 
                 document.documentElement.setAttribute('data-theme', currentTheme);
                 updateThemeButton();
             }
@@ -2604,6 +2604,7 @@
     </script>
 </body>
 </html>
+
 
 
 
