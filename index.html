@@ -1433,7 +1433,7 @@
         /* Updated Carousel Styles */
         .thumbnail-carousel {
             width: 100%;
-            max-height: 70vh;
+            max-height: 90vh;
             overflow: hidden;
         }
         .carousel-container {
@@ -2191,7 +2191,7 @@
                 ]
             },
             proj2: {
-                title: currentLang === 'fr' ? 'Application de Géolocalisation - Angular & Spring Boot' : 'Geolocation App - Angular & Spring Boot',
+                title: currentLang === 'fr' ? 'Application Delice ou deçoit- Angular & Spring Boot' : 'Restaurant App - Angular & Spring Boot',
                 company: 'NowWeProg',
                 date: '06/2024 - 08/2024',
                 tabs: [
@@ -2220,13 +2220,30 @@
                         `
                     },
                     {
-                        name: currentLang === 'fr' ? 'Captures d\'Écran' : 'Screenshots',
-                        content: `
-                            <div class="media-placeholder">
-                                <p>${currentLang === 'fr' ? 'Captures d\'écran bientôt disponibles' : 'Screenshots coming soon'}</p>
-                            </div>
-                        `
-                    }
+           
+            name: currentLang === 'fr' ? 'Captures d\'Écran' : 'Screenshots',
+            content: `
+                <div class="thumbnail-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            <img src="./screenshots/deliceoudecoit1.png" alt="Screenshot 1" class="carousel-slide active">
+                            <img src="./screenshots/deliceoudecoit2.png" alt="Screenshot 2" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit3.png" alt="Screenshot 3" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit4.png" alt="Screenshot 4" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit5.png" alt="Screenshot 5" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit6.png" alt="Screenshot 6" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit7.png" alt="Screenshot 7" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit8.png" alt="Screenshot 8" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit9.png" alt="Screenshot 9" class="carousel-slide">
+                        </div>
+                        <button class="carousel-btn prev" onclick="prevSlide()">←</button>
+                        <button class="carousel-btn next" onclick="nextSlide()">→</button>
+                    </div>
+                    <div class="carousel-thumbnails" id="carouselThumbnails"></div>
+                    <div class="carousel-counter" id="carouselCounter">1 / 9</div>
+                </div>
+            `
+        }
                 ]
             },
             proj3: {
@@ -2335,14 +2352,55 @@
                             </div>
                         `
                     },
+                     {
+                        name: currentLang === 'fr' ? 'video' : 'video',
+                        content: `<div class="media-placeholder">
+                    <iframe
+                        width="100%"
+                        height="315"
+                        src="https://www.youtube.com/embed/Gox0KsKT56w?si=9t5XwoPutRemgqsM"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                    <div style="margin-top: 20px; font-size: 0.9rem;">
+                        <a href="https://www.youtube.com/embed/Gox0KsKT56w?si=9t5XwoPutRemgqsM" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                            Watch on YouTube if the video doesn't load
+                        </a>
+                    </div>
+                </div>`
+                    },
                     {
-                        name: currentLang === 'fr' ? 'Captures d\'Écran' : 'Screenshots',
-                        content: `
-                            <div class="media-placeholder">
-                                <p>${currentLang === 'fr' ? 'Captures d\'écran bientôt disponibles' : 'Screenshots coming soon'}</p>
-                            </div>
-                        `
-                    }
+           
+            name: currentLang === 'fr' ? 'Captures d\'Écran' : 'Screenshots',
+            content: `
+                <div class="thumbnail-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            <img src="./screenshots/pokerspire (6).png" alt="Screenshot 1" class="carousel-slide active">
+                            <img src="./screenshots/pokerspire (7).png" alt="Screenshot 3" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (4).png" alt="Screenshot 4" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (5).png" alt="Screenshot 5" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (2).png" alt="Screenshot 6" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (3).png" alt="Screenshot 7" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (8).png" alt="Screenshot 8" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (9).png" alt="Screenshot 9" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (10).png" alt="Screenshot 9" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (11).png" alt="Screenshot 9" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (12).png" alt="Screenshot 9" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (13).png" alt="Screenshot 9" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (14).png" alt="Screenshot 9" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (16).png" alt="Screenshot 9" class="carousel-slide">
+                        </div>
+                        <button class="carousel-btn prev" onclick="prevSlide()">←</button>
+                        <button class="carousel-btn next" onclick="nextSlide()">→</button>
+                    </div>
+                    <div class="carousel-thumbnails" id="carouselThumbnails"></div>
+                    <div class="carousel-counter" id="carouselCounter">1 / 9</div>
+                </div>
+            `
+        }
                 ]
             },
             proj6: {
@@ -2461,6 +2519,42 @@
 
             // Initialize carousel for proj1 screenshots
             if (projectId === 'proj1') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+             if (projectId === 'proj2') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+             if (projectId === 'proj3') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+             if (projectId === 'proj4') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+             if (projectId === 'proj5') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+             if (projectId === 'proj6') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+             if (projectId === 'proj7') {
                 setTimeout(() => {
                     initThumbnails();
                     initializeCarousel();
