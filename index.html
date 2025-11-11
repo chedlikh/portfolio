@@ -1950,7 +1950,7 @@
         }
         // Toggle between light and dark themes
         function toggleTheme() {
-            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', currentTheme);
             localStorage.setItem('theme', currentTheme);
             updateThemeButton();
@@ -2604,6 +2604,7 @@
     </script>
 </body>
 </html>
+
 
 
 
