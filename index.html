@@ -1,0 +1,3248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+        content="frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com;">
+    <title>Chedli Khangui - Software Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* CSS Variables for Light Theme */
+        :root {
+            --primary: #4f46e5;
+            --secondary: #7c3aed;
+            --accent: #ec4899;
+            --bg-light: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f5f9;
+            --text: #1e293b;
+            --text-gray: #64748b;
+            --border: #e2e8f0;
+            --bubble-bg: rgba(79, 70, 229, 0.08);
+            --bubble-border: rgba(79, 70, 229, 0.2);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 50px rgba(79, 70, 229, 0.1);
+        }
+
+        /* CSS Variables for Dark Theme */
+        [data-theme="dark"] {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --bg-light: #0a0a0f;
+            --bg-card: #1a1a24;
+            --bg-card-hover: #22223a;
+            --text: #e4e4e7;
+            --text-gray: #a1a1aa;
+            --border: #27273f;
+            --bubble-bg: rgba(99, 102, 241, 0.12);
+            --bubble-border: rgba(99, 102, 241, 0.4);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 20px 50px rgba(99, 102, 241, 0.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-light);
+            color: var(--text);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1000;
+            background: var(--bubble-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 10px 24px;
+            border: 1px solid var(--bubble-border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+        }
+
+        .theme-toggle .icon {
+            font-size: 16px;
+        }
+
+        .lang-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            background: var(--bubble-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 10px 24px;
+            border: 1px solid var(--bubble-border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .lang-toggle:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+        }
+
+        /* Hero Section - FIXED LAYOUT FOR 1366x768 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-card-hover) 100%);
+            padding: 80px 20px 60px;
+            transition: background 0.3s ease;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -300px;
+            right: -300px;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        [data-theme="dark"] .hero::before {
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.5;
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--text);
+            z-index: 10;
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -5%;
+        }
+
+        /* Profile Container - FIXED SIZE */
+        .profile-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 650px;
+            margin: 0 auto -70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            margin-bottom: -6%;
+        }
+
+        .profile-image {
+            width: 120%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(79, 70, 229, 0.2));
+            transition: filter 0.3s ease;
+        }
+
+        [data-theme="dark"] .profile-image {
+            filter: drop-shadow(0 20px 40px rgba(99, 102, 241, 0.4));
+        }
+
+        .name-display {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-top: 20px;
+            color: var(--text);
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            z-index: 10;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Skill Bubbles - FIXED POSITIONS */
+        .skill-bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .skill-bubble {
+            position: absolute;
+            background: var(--bubble-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--bubble-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 12px;
+            text-align: center;
+            padding: 8px;
+            pointer-events: all;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .skill-bubble:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(79, 70, 229, 0.3);
+            z-index: 10;
+        }
+
+        /* Bubble sizes */
+        .skill-bubble.large {
+            width: 90px;
+            height: 90px;
+            font-size: 13px;
+        }
+
+        .skill-bubble.medium {
+            width: 75px;
+            height: 75px;
+        }
+
+        .skill-bubble.small {
+            width: 65px;
+            height: 65px;
+        }
+
+        /* Fixed bubble positions - Left side */
+        .skill-bubble:nth-child(1) {
+            top: 18%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .skill-bubble:nth-child(2) {
+            top: 11%;
+            left: 42%;
+            animation-delay: 0.3s;
+        }
+
+        .skill-bubble:nth-child(3) {
+            top: 42%;
+            left: 10%;
+            animation-delay: 0.6s;
+        }
+
+        .skill-bubble:nth-child(5) {
+            top: 55%;
+            left: 2%;
+            animation-delay: 1.2s;
+        }
+
+        .skill-bubble:nth-child(7) {
+            top: 78%;
+            left: 15%;
+            animation-delay: 1.8s;
+        }
+
+        .skill-bubble:nth-child(9) {
+            top: 70%;
+            left: 8%;
+            animation-delay: 2.4s;
+        }
+
+        .skill-bubble:nth-child(11) {
+            top: 78%;
+            left: -5%;
+            animation-delay: 3.0s;
+        }
+
+        .skill-bubble:nth-child(13) {
+            top: 12%;
+            left: 60%;
+            animation-delay: 3.6s;
+        }
+
+        .skill-bubble:nth-child(15) {
+            top: 25%;
+            left: 25%;
+            animation-delay: 4.2s;
+        }
+
+        /* Fixed bubble positions - Right side */
+        .skill-bubble:nth-child(4) {
+            top: 18%;
+            right: 5%;
+            animation-delay: 0.9s;
+        }
+
+        .skill-bubble:nth-child(6) {
+            top: 45%;
+            right: 0%;
+            animation-delay: 1.5s;
+        }
+
+        .skill-bubble:nth-child(8) {
+            top: 42%;
+            right: 10%;
+            animation-delay: 2.1s;
+        }
+
+        .skill-bubble:nth-child(10) {
+            top: 55%;
+            right: 10%;
+            animation-delay: 2.7s;
+        }
+
+        .skill-bubble:nth-child(12) {
+            top: 30%;
+            right: 18%;
+            animation-delay: 3.3s;
+        }
+
+        .skill-bubble:nth-child(14) {
+            top: 77%;
+            right: 8%;
+            animation-delay: 3.9s;
+        }
+
+        .skill-bubble:nth-child(16) {
+            top: 70%;
+            right: -0%;
+            animation-delay: 4.5s;
+        }
+
+        /* Hand Buttons - FIXED */
+        .hand-buttons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .hand-btn {
+            position: absolute;
+            background: transparent;
+            color: transparent;
+            border: none;
+            padding: 0;
+            border-radius: 0;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: none;
+            transition: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            pointer-events: all;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 50%;
+            height: 100%;
+            top: 0;
+        }
+
+        .hand-btn::before {
+            content: '';
+            font-size: 16px;
+        }
+
+        .hand-btn.left::before {
+            content: '🚀';
+        }
+
+        .hand-btn.right::before {
+            content: '👨‍💻';
+        }
+
+        .hand-btn:hover,
+        .hand-btn:active {
+            background: transparent;
+            color: transparent;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .hand-btn.left {
+            right: 50%;
+        }
+
+        .hand-btn.right {
+            left: 50%;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-gray);
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            max-width: 900px;
+            margin: 0 auto -25px;
+            line-height: 1.8;
+            color: var(--text-gray);
+            transition: color 0.3s ease;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            background: var(--bubble-bg);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            color: var(--text-gray);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
+        }
+
+        /* Main Content - Responsive */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .about-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+        }
+
+        .about-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .about-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            color: var(--primary);
+        }
+
+        .about-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-header {
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.03), rgba(236, 72, 153, 0.03));
+            position: relative;
+            background-size: contain !important;   /* shows FULL image */
+ background-color: #0d1117;
+ border-radius: 12px 12px 0 0;
+ overflow: hidden;
+ 
+        }
+        .project-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;                     /* copies the same background-image */
+    background-size: cover;                  /* cover for the blur layer */
+    filter: blur(2px);                       /* change number to make it more/less blurry */
+    transform: scale(1.1);                    /* slightly zoom to avoid white edges */
+    z-index: 1;
+}
+
+/* Dark overlay so text stays readable */
+.project-header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 2;
+}
+
+/* Your text stays on top */
+.project-header > .header-content,
+.project-header > .project-date,
+.project-header > .project-title,
+.project-header > .project-company {
+    position: relative;
+    z-index: 3;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+        .project-header-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent, rgba(85, 70, 100, 0.418));
+    pointer-events: none;
+}
+
+.project-header:hover {
+    transform: translateY(-4px);
+}
+
+        [data-theme="dark"] .project-header {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(236, 72, 153, 0.05));
+        }
+
+        .project-date {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            padding: 5px 14px;
+            background: rgba(236, 72, 153, 0.1);
+            border-radius: 20px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .project-company {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .project-body {
+            padding: 0 30px 30px;
+        }
+
+        .project-preview {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .project-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tech-tag {
+            background: rgba(79, 70, 229, 0.08);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(79, 70, 229, 0.15);
+        }
+
+        [data-theme="dark"] .tech-tag {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+        }
+
+        .view-details {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .view-details::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .view-details::after {
+            transform: translateX(5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-card);
+            color: var(--text);
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        footer h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 12px 24px;
+            background: rgba(79, 70, 229, 0.08);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+        }
+
+        [data-theme="dark"] .social-links a {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+        }
+
+        footer p {
+            margin-top: 25px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE BREAKPOINTS */
+        /* Desktop variations: 1360x768, 1280x768, 1280x720, 1280x600 */
+        @media (max-width: 1366px) and (min-width: 1200px) {
+            .profile-wrapper {
+                height: 600px;
+            }
+
+            .profile-container,
+            .hand-buttons {
+                width: 550px;
+                height: 550px;
+                margin-bottom: -6%;
+            }
+        }
+
+        @media (max-width: 1199px) and (min-width: 1024px) {
+            .profile-wrapper {
+                height: 550px;
+            }
+
+            .profile-container,
+            .hand-buttons {
+                width: 500px;
+                height: 500px;
+                margin-bottom: -6%;
+            }
+
+            .skill-bubble.large {
+                width: 80px;
+                height: 80px;
+                font-size: 12px;
+            }
+
+            .skill-bubble.medium {
+                width: 68px;
+                height: 68px;
+                font-size: 11px;
+            }
+
+            .skill-bubble.small {
+                width: 58px;
+                height: 58px;
+                font-size: 10px;
+            }
+        }
+
+        /* Tablets: 1024x768, 800x600 */
+        @media (max-width: 1023px) and (min-width: 768px) {
+            .hero {
+                padding: 60px 20px 40px;
+            }
+
+            .profile-wrapper {
+                height: 500px;
+            }
+
+            .profile-container,
+            .hand-buttons {
+                width: 450px;
+                height: 450px;
+                margin-bottom: -6%;
+            }
+
+            .skill-bubble.large {
+                width: 70px;
+                height: 70px;
+                font-size: 11px;
+            }
+
+            .skill-bubble.medium {
+                width: 60px;
+                height: 60px;
+                font-size: 10px;
+            }
+
+            .skill-bubble.small {
+                width: 52px;
+                height: 52px;
+                font-size: 9px;
+            }
+
+            .hand-btn {
+                padding: 12px 20px;
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .name-display {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        /* Mobile Landscape & Small Tablets: HD phones 1280x720 */
+        @media (max-width: 767px) and (min-width: 600px) {
+            .hero {
+                padding: 60px 15px 35px;
+            }
+
+            .profile-wrapper {
+                height: 420px;
+            }
+
+            .profile-container,
+            .hand-buttons {
+                width: 380px;
+                height: 380px;
+                margin-bottom: -6%;
+            }
+
+            .skill-bubble.large {
+                width: 62px;
+                height: 62px;
+                font-size: 10px;
+            }
+
+            .skill-bubble.medium {
+                width: 54px;
+                height: 54px;
+                font-size: 9px;
+            }
+
+            .skill-bubble.small {
+                width: 48px;
+                height: 48px;
+                font-size: 8px;
+            }
+
+            .hand-btn {
+                padding: 10px 16px;
+                font-size: 11px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .name-display {
+                font-size: 1.8rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero .description {
+                font-size: 0.95rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mobile Portrait: Most phones (FHD 1920x1080, FHD+ 2400x1080, QHD 2560x1440, etc.) */
+        @media (max-width: 599px) {
+            .hero {
+                padding: 50px 10px 30px;
+                min-height: auto;
+            }
+
+            .profile-wrapper {
+                height: 350px;
+            }
+
+            .profile-container,
+            .hand-buttons {
+                width: 300px;
+                height: 300px;
+                margin-bottom: -6%;
+            }
+
+            .skill-bubble {
+                padding: 4px;
+            }
+
+            .skill-bubble.large {
+                width: 54px;
+                height: 54px;
+                font-size: 9px;
+            }
+
+            .skill-bubble.medium {
+                width: 48px;
+                height: 48px;
+                font-size: 8px;
+            }
+
+            .skill-bubble.small {
+                width: 42px;
+                height: 42px;
+                font-size: 7px;
+            }
+
+            /* Hide some bubbles on small screens */
+            .skill-bubble:nth-child(11),
+            .skill-bubble:nth-child(16) {
+                display: none;
+            }
+
+            .hand-btn {
+                padding: 8px 14px;
+                font-size: 10px;
+                gap: 4px;
+            }
+
+            .hand-btn::before {
+                font-size: 12px;
+            }
+
+            .hand-btn.right {
+                right: -10%;
+                bottom: 25%;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .name-display {
+                font-size: 1.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+
+            .hero .description {
+                font-size: 0.85rem;
+                line-height: 1.6;
+            }
+
+            .contact-info {
+                gap: 10px;
+            }
+
+            .contact-item {
+                font-size: 0.8rem;
+                padding: 8px 16px;
+            }
+
+            .container {
+                padding: 40px 15px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-toggle,
+            .lang-toggle {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+        }
+
+        /* Very Small Phones: iPhone SE, older Android */
+        @media (max-width: 400px) {
+            .profile-wrapper {
+                height: 300px;
+            }
+
+            .profile-container,
+            .hand-buttons {
+                width: 250px;
+                height: 250px;
+                margin-bottom: -6%;
+            }
+
+            .skill-bubble.large {
+                width: 46px;
+                height: 46px;
+                font-size: 8px;
+            }
+
+            .skill-bubble.medium {
+                width: 40px;
+                height: 40px;
+                font-size: 7px;
+            }
+
+            .skill-bubble.small {
+                width: 36px;
+                height: 36px;
+                font-size: 7px;
+            }
+
+            /* Hide more bubbles */
+            .skill-bubble:nth-child(5),
+            .skill-bubble:nth-child(10),
+            .skill-bubble:nth-child(11),
+            .skill-bubble:nth-child(13),
+            .skill-bubble:nth-child(15),
+            .skill-bubble:nth-child(16) {
+                display: none;
+            }
+
+            .hand-btn {
+                padding: 6px 10px;
+                font-size: 9px;
+            }
+
+            .hand-btn.right {
+                right: -15%;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .name-display {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* High-DPI displays (4K, Retina) */
+        @media (min-width: 1920px) {
+            .container {
+                max-width: 1600px;
+            }
+
+            .profile-wrapper {
+                height: 700px;
+            }
+
+            .profile-container,
+            .hand-buttons {
+                width: 650px;
+                height: 650px;
+                margin-bottom: -6%;
+            }
+
+            .skill-bubble.large {
+                width: 100px;
+                height: 100px;
+                font-size: 14px;
+            }
+
+            .skill-bubble.medium {
+                width: 85px;
+                height: 85px;
+                font-size: 13px;
+            }
+
+            .skill-bubble.small {
+                width: 75px;
+                height: 75px;
+                font-size: 12px;
+            }
+        }
+
+        /* Ultra-wide and 4K displays */
+        @media (min-width: 2560px) {
+
+            .profile-container,
+            .hand-buttons {
+                width: 700px;
+                height: 700px;
+                margin-bottom: -6%;
+            }
+
+            .skill-bubble.large {
+                width: 110px;
+                height: 110px;
+                font-size: 15px;
+            }
+
+            .skill-bubble.medium {
+                width: 95px;
+                height: 95px;
+                font-size: 14px;
+            }
+
+            .skill-bubble.small {
+                width: 85px;
+                height: 85px;
+                font-size: 13px;
+            }
+        }
+
+        /* Landscape orientation on mobile */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                padding: 40px 20px 30px;
+            }
+
+            .profile-wrapper {
+                height: 350px;
+            }
+
+            .profile-container,
+            .hand-buttons {
+                width: 300px;
+                height: 300px;
+                margin-bottom: -6%;
+            }
+
+            .skill-bubble.large {
+                width: 55px;
+                height: 55px;
+            }
+
+            .skill-bubble.medium {
+                width: 48px;
+                height: 48px;
+            }
+
+            .skill-bubble.small {
+                width: 42px;
+                height: 42px;
+            }
+        }
+
+        /* Ensure crisp images on high-DPI screens */
+        @media (-webkit-min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi) {
+            .profile-image {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .skill-bubble:active {
+                background: var(--primary);
+                transform: scale(0.95);
+            }
+
+            .hand-btn:active {
+                transform: scale(0.95);
+            }
+
+            .project-card:active {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .about-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+        }
+
+        .about-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .about-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            color: var(--primary);
+        }
+
+        .about-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-header {
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.03), rgba(236, 72, 153, 0.03));
+        }
+
+        [data-theme="dark"] .project-header {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(236, 72, 153, 0.05));
+        }
+
+        .project-date {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            padding: 5px 14px;
+            background: rgba(236, 72, 153, 0.1);
+            border-radius: 20px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .project-company {
+            color: var(--primary);
+
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .project-body {
+            padding: 0 30px 30px;
+        }
+
+        .project-preview {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .project-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tech-tag {
+            background: rgba(79, 70, 229, 0.08);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(79, 70, 229, 0.15);
+        }
+
+        [data-theme="dark"] .tech-tag {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+        }
+
+        .view-details {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .view-details::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .view-details::after {
+            transform: translateX(5px);
+        }
+
+        .project-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-card-hover);
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+        }
+
+        .project-tab {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-gray);
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            position: relative;
+        }
+
+        .project-tab.active {
+            color: var(--primary);
+            background: var(--bg-card);
+        }
+
+        .project-tab:hover:not(.active) {
+            background: rgba(79, 70, 229, 0.05);
+            color: var(--primary);
+        }
+
+        .project-tab-content {
+            display: none;
+        }
+
+        .project-tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(236, 72, 153, 0.05));
+            padding: 35px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        [data-theme="dark"] .modal-header {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--border);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text);
+            font-size: 1.8rem;
+        }
+
+        [data-theme="dark"] .modal-close {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: rotate(90deg);
+        }
+
+        [data-theme="dark"] .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .modal-subtitle {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .modal-date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            padding: 35px;
+        }
+
+        .modal-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .modal-tab {
+            background: none;
+            border: none;
+            padding: 14px 26px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-gray);
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .modal-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .modal-tab:hover {
+            color: var(--primary);
+            background: rgba(79, 70, 229, 0.05);
+        }
+
+        [data-theme="dark"] .modal-tab:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .modal-tab-content {
+            display: none;
+        }
+
+        .modal-tab-content.active {
+            display: block;
+            animation: fadeInContent 0.4s ease;
+        }
+
+        @keyframes fadeInContent {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-description {
+            color: var(--text-gray);
+            line-height: 1.9;
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        .modal-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-features li {
+            padding: 14px 0;
+            padding-left: 35px;
+            position: relative;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .modal-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .modal-tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .modal-tech-tag {
+            background: rgba(79, 70, 229, 0.08);
+            color: var(--primary);
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(79, 70, 229, 0.2);
+        }
+
+        [data-theme="dark"] .modal-tech-tag {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .tech-section-title {
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .media-placeholder {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            background: rgba(79, 70, 229, 0.03);
+            border-radius: 20px;
+            text-align: center;
+            color: var(--primary);
+            font-weight: 600;
+            border: 2px dashed var(--border);
+            font-size: 1.1rem;
+        }
+
+        [data-theme="dark"] .media-placeholder {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .media-placeholder iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Scrollbar */
+        .modal-content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* RESPONSIVE STYLES */
+        /* Tablets (landscape and portrait) */
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        /* Mobile devices (large phones) */
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .about-card {
+                padding: 25px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .project-header,
+            .project-body {
+                padding: 20px;
+            }
+
+            .project-title {
+                font-size: 1.3rem;
+            }
+
+            .modal.active {
+                padding: 0;
+                align-items: stretch;
+            }
+
+            .modal-content {
+                border-radius: 0;
+                max-height: 100vh;
+                max-width: 100%;
+                height: 100vh;
+            }
+
+            .modal-header {
+                padding: 30px 20px;
+            }
+
+            .modal-close {
+                width: 40px;
+                height: 40px;
+                top: 20px;
+                right: 20px;
+                font-size: 1.6rem;
+            }
+
+            .modal-title {
+                font-size: 1.6rem;
+                padding-right: 50px;
+            }
+
+            .modal-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .modal-date {
+                font-size: 0.95rem;
+            }
+
+            .modal-body {
+                padding: 30px 20px;
+            }
+
+            .modal-tabs {
+                gap: 10px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 5px;
+            }
+
+            .modal-tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+            .modal-tab {
+                padding: 14px 20px;
+                font-size: 0.95rem;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .modal-description {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            .modal-features li {
+                font-size: 0.95rem;
+                padding: 12px 0;
+                padding-left: 35px;
+            }
+
+            .modal-tech-tag {
+                font-size: 0.9rem;
+                padding: 10px 16px;
+            }
+
+            .tech-section-title {
+                font-size: 1.1rem;
+            }
+
+            .media-placeholder {
+                padding: 60px 15px;
+                font-size: 1rem;
+            }
+
+            .media-placeholder-icon {
+                font-size: 3rem;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            .about-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .about-card p {
+                font-size: 0.85rem;
+            }
+
+            .project-header,
+            .project-body {
+                padding: 18px;
+            }
+
+            .project-title {
+                font-size: 1.1rem;
+            }
+
+            .project-date {
+                font-size: 0.75rem;
+                padding: 4px 10px;
+            }
+
+            .project-company {
+                font-size: 0.85rem;
+            }
+
+            .project-preview {
+                font-size: 0.85rem;
+            }
+
+            .tech-tag {
+                font-size: 0.7rem;
+                padding: 4px 10px;
+            }
+
+            .view-details {
+                font-size: 0.8rem;
+            }
+
+            .modal-header {
+                padding: 25px 15px;
+            }
+
+            .modal-close {
+                width: 38px;
+                height: 38px;
+                top: 18px;
+                right: 18px;
+            }
+
+            .modal-title {
+                font-size: 1.4rem;
+                padding-right: 45px;
+            }
+
+            .modal-subtitle {
+                font-size: 1rem;
+            }
+
+            .modal-date {
+                font-size: 0.9rem;
+            }
+
+            .modal-body {
+                padding: 25px 15px;
+            }
+
+            .modal-tab {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Touch device improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .project-card:active {
+                transform: translateY(-5px);
+            }
+
+            .modal-tab:active {
+                background: rgba(79, 70, 229, 0.1);
+            }
+        }
+
+        /* Updated Carousel Styles */
+        .thumbnail-carousel {
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            background: var(--bg-card-hover);
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 10px;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 10;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-btn.prev {
+            left: 20px;
+        }
+
+        .carousel-btn.next {
+            right: 20px;
+        }
+
+        .carousel-thumbnails {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 15px 5px;
+            scrollbar-width: thin;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .carousel-thumbnails::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .carousel-thumbnails::-webkit-scrollbar-track {
+            background: var(--bg-light);
+            border-radius: 3px;
+        }
+
+        .carousel-thumbnails::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .carousel-thumbnail {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            border: 2px solid transparent;
+        }
+
+        .carousel-thumbnail.active,
+        .carousel-thumbnail:hover {
+            opacity: 1;
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .carousel-counter {
+            text-align: center;
+            margin: 10px 0;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .carousel-container {
+                height: 300px;
+            }
+
+            .carousel-thumbnail {
+                width: 60px;
+                height: 45px;
+            }
+
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-container {
+                height: 250px;
+            }
+
+            .carousel-thumbnail {
+                width: 50px;
+                height: 38px;
+            }
+
+            .carousel-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+        }
+
+        .skill-bubble {
+            flex-direction: column;
+            gap: 6px;
+            /* a bit more breathing room */
+            padding: 8px !important;
+            line-height: 1;
+        }
+
+        .skill-bubble i {
+            font-size: 2.6em !important;
+            /* BIG icons – this is the main change */
+            margin: 0 !important;
+            line-height: 1;
+        }
+
+        /* Fine-tune per bubble size so they all look perfect */
+        .skill-bubble.large i {
+            font-size: 3.2em !important;
+        }
+
+        .skill-bubble.medium i {
+            font-size: 2.9em !important;
+        }
+
+        .skill-bubble.small i {
+            font-size: 2.5em !important;
+        }
+
+        /* Keep text readable (slightly smaller when icon is huge) */
+        .skill-bubble span {
+            font-size: 0.78em;
+            /* prevents text from overflowing */
+            font-weight: 700;
+        }
+        .header-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;           /* This makes the image fill perfectly */
+    display: block;
+}
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/konpa/devicon@master/devicon.min.css">
+</head>
+
+<body>
+
+    <script>
+        // Prevent zoom on double-tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+
+    <script>
+        let currentSlide = 0;
+        let totalSlides = 0;
+        let slides = [];
+        let thumbnails = [];
+
+        function initializeCarousel() {
+            // Reset to first slide
+            currentSlide = 0;
+            slides = document.querySelectorAll('.carousel-slide');
+            totalSlides = slides.length;
+            thumbnails = document.querySelectorAll('.carousel-thumbnail');
+            if (totalSlides > 0) {
+                updateCarousel();
+            }
+        }
+
+        function updateCarousel() {
+            const track = document.getElementById('carouselTrack');
+            if (track) {
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+
+            thumbnails.forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === currentSlide);
+            });
+
+            const counter = document.getElementById('carouselCounter');
+            if (counter) {
+                counter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+            }
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function initThumbnails() {
+            const thumbnailsContainer = document.getElementById('carouselThumbnails');
+            if (!thumbnailsContainer) return;
+
+            thumbnailsContainer.innerHTML = '';
+
+            // Re-query slides to get fresh elements from current modal
+            slides = document.querySelectorAll('.carousel-slide');
+
+            slides.forEach((slide, index) => {
+                const thumb = document.createElement('img');
+                thumb.src = slide.src;
+                thumb.alt = slide.alt;
+                thumb.className = 'carousel-thumbnail' + (index === 0 ? ' active' : '');
+                thumb.onclick = () => goToSlide(index);
+                thumbnailsContainer.appendChild(thumb);
+            });
+
+            thumbnails = document.querySelectorAll('.carousel-thumbnail');
+        }
+    </script>
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <span class="icon" id="themeIcon">🌙</span>
+        <span id="themeText">Dark Mode</span>
+    </div>
+    <div class="lang-toggle" onclick="toggleLanguage()">
+        <span id="langText">🇫🇷 FR</span>
+    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="profile-wrapper">
+                <!-- Skill Bubbles Around Profile - Only on sides -->
+                <div class="skill-bubbles">
+                    <div class="skill-bubble large"><i class="devicon-spring-plain"></i>SpringBoot</div>
+                    <div class="skill-bubble medium"><i class="devicon-angularjs-plain"></i> Angular</div>
+                    <div class="skill-bubble medium"><i class="devicon-react-original"></i> ReactJS</div>
+                    <div class="skill-bubble small"><i class="devicon-docker-plain"></i> Docker</div>
+                    <div class="skill-bubble small"><i class="devicon-jenkins-plain"></i> Jenkins</div>
+                    <div class="skill-bubble medium"><i class="devicon-dot-net-plain"></i> .NET</div>
+                    <div class="skill-bubble small"><i class="devicon-mysql-plain"></i> MySQL</div>
+                    <div class="skill-bubble small"><i class="devicon-java-plain"></i> JAVA</div>
+                    <div class="skill-bubble small"><i class="devicon-github-original"></i> GitHub</div>
+                    <div class="skill-bubble medium"><i class="devicon-sonarqube-plain"></i> SonarQube</div>
+                    <div class="skill-bubble small"><i class="devicon-grafana-original"></i> Grafana</div>
+                    <div class="skill-bubble small"><i class="devicon-amazonwebservices-original"></i> DevOps</div>
+                    <div class="skill-bubble medium"><i class="devicon-typescript-plain"></i> TypeScript</div>
+                    <div class="skill-bubble small"><i class="devicon-postgresql-plain"></i> PostgreSQL</div>
+                    <div class="skill-bubble medium"><i class="devicon-microsoftsqlserver-plain"></i> SQL Server</div>
+                    <div class="skill-bubble medium"><i class="devicon-jira-plain"></i> SCRUM</div>
+                </div>
+                <!-- Profile Image Container -->
+                <div class="profile-container">
+                    <img src="./chedli3.png" alt="Chedli Khangui" class="profile-image">
+                    <!-- Hand Buttons Fixed on Hands -->
+                    <div class="hand-buttons">
+                        <button class="hand-btn left" onclick="scrollToSection('projects')">
+                            <span class="projects-btn-text"></span>
+                        </button>
+                        <button class="hand-btn right" onclick="scrollToSection('about')">
+                            <span class="about-btn-text"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Name displayed directly under the photo -->
+            <h1 id="heroName">Chedli Khangui</h1>
+            <div class="subtitle" id="heroTitle">Software Architecture Engineer</div>
+            <p class="description" id="heroDesc">
+                Passionate about full-stack development with Java, Spring Boot, Angular and ReactJS, with solid
+                experience in DevOps.
+            </p>
+            <div class="contact-info">
+                <div class="contact-item">📧 chedli.khangui@gmail.com</div>
+                <div class="contact-item">📱 +216 50837010</div>
+                <div class="contact-item">📍 Tunis, Tunisia</div>
+            </div>
+        </div>
+    </section>
+    <!-- Main Content -->
+    <div class="container">
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title" id="aboutTitle">About Me</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3 id="profileTitle">Profile</h3>
+                    <p id="profileText">
+                        Software architecture engineer passionate about full-stack development in Java, Spring Boot,
+                        Angular and ReactJS, with solid experience in CI/CD and DevOps. I design high-performance,
+                        scalable and user-oriented applications.
+                    </p>
+                </div>
+                <div class="about-card">
+                    <h3 id="educationTitle">Education</h3>
+                    <div style="margin-bottom: 18px;">
+                        <div style="font-weight: 700; color: var(--primary); font-size: 1rem;">ESPRIT</div>
+                        <div style="color: var(--text-gray); font-size: 0.9rem;" id="educationDegree1">Software
+                            Architecture Engineering</div>
+                        <div style="color: var(--accent); font-size: 0.8rem;">2022 - 2025</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700; color: var(--primary); font-size: 1rem;">ESPRIT School of Business
+                        </div>
+                        <div style="color: var(--text-gray); font-size: 0.9rem;" id="educationDegree2">Bachelor in
+                            Management IT</div>
+                        <div style="color: var(--accent); font-size: 0.8rem;">2019 - 2022</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2 class="section-title" id="projectsTitle">Projects & Experience</h2>
+            <div class="projects-grid">
+                <!-- Project 1: GreenSpace -->
+                <div class="project-card" onclick="openModal('proj1')">
+                    <!-- NEW: Header with background image -->
+                    <div class="project-header" style="background-image: url('./screenshots/greenspace1.png');">
+                        <div class="project-header-overlay"></div> <!-- dark overlay for text readability -->
+
+                        <span class="project-date">01/2025 - 07/2025</span>
+                        <h3 class="project-title" id="proj1Title">GreenSpace - Spring Boot & ReactJS</h3>
+                        <div class="project-company">Biwaï</div>
+                    </div>
+
+                    <!-- Rest of your card stays exactly the same -->
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj1Preview">
+                            Web application for user management and internal communication with complete CI/CD pipeline
+                            implementation...
+                        </p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag"><i class="devicon-spring-plain"></i>Spring Boot</span>
+                            <span class="tech-tag">ReactJS</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Jenkins</span>
+                            <span class="tech-tag">SonarQube</span>
+                        </div>
+                        <span class="view-details" id="proj1ViewMore">View Full Details</span>
+                    </div>
+                </div>
+                <!-- Project 2: Google Maps Integration -->
+                <div class="project-card" onclick="openModal('proj2')">
+                    <div class="project-header" style="background-image: url('./screenshots/deliceoudecoit9.png');">
+                        <span class="project-date">06/2024 - 08/2024</span>
+                        <h3 class="project-title" id="proj2Title">Geolocation App - Angular & Spring Boot</h3>
+                        <div class="project-company">NowWeProg</div>
+                    </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj2Preview">Full-stack application with Google Maps API
+                            integration for establishments consulting and reviews...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">Google Maps API</span>
+                            <span class="tech-tag">Java</span>
+                        </div>
+                        <span class="view-details" id="proj2ViewMore">View Full Details</span>
+                    </div>
+                </div>
+                <!-- Project 3: Education Platform -->
+                <div class="project-card" onclick="openModal('proj3')">
+                    <div class="project-header" style="background-image: url('./screenshots/screen\ \(14\).png');">
+                        <span class="project-date">07/2023 - 08/2023</span>
+                        <h3 class="project-title" id="proj3Title">Online Education Platform</h3>
+                        <div class="project-company">NowWeProg</div>
+                    </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj3Preview">Education platform for students with comprehensive
+                            course, test and resource management...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Agile</span>
+                        </div>
+                        <span class="view-details" id="proj3ViewMore">View Full Details</span>
+                    </div>
+                </div>
+                <!-- Project 4: Deployment Automation -->
+                <div class="project-card" onclick="openModal('proj4')">
+                    <div class="project-header" style="background-image: url('./screenshots/axefinance\ \(2\).png');">
+                        <span class="project-date">01/2022 - 06/2022</span>
+                        <h3 class="project-title" id="proj4Title">Automatisation du processus de packaging - .NET &
+                            Angular</h3>
+                        <div class="project-company">Axe Finance</div>
+                    </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj4Preview">Application to automate packaging and optimize
+                            deployment processes with advanced management features...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">.NET</span>
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">SQL</span>
+                        </div>
+                        <span class="view-details" id="proj4ViewMore">View Full Details</span>
+                    </div>
+                </div>
+                <!-- Project 5: Poker Planning -->
+                <div class="project-card" onclick="openModal('proj5')">
+                    <div class="project-header" style="background-image: url('./screenshots/attestation.jpg');">
+                        <span class="project-date">01/2024 - 05/2024</span>
+                        <h3 class="project-title" id="proj5Title">Poker Planning for Scrum</h3>
+                        <div class="project-company">Personal Project</div>
+                    </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj5Preview">Agile management application with Jira integration,
+                            voting system and statistical analysis...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">Angular</span>
+                            <span class="tech-tag">Jira API</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                        <span class="view-details" id="proj5ViewMore">View Full Details</span>
+                    </div>
+                </div>
+                <!-- Project 6: CI/CD Pipeline -->
+                <div class="project-card" onclick="openModal('proj6')">
+                    <div class="project-header">
+                        <span class="project-date">01/2024 - 02/2024</span>
+                        <h3 class="project-title" id="proj6Title">DevOps: CI/CD Pipeline</h3>
+                        <div class="project-company">Personal Project</div>
+                    </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj6Preview">Complete pipeline with automated testing, code
+                            quality analysis and performance monitoring...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Jenkins</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">SonarQube</span>
+                            <span class="tech-tag">Grafana</span>
+                        </div>
+                        <span class="view-details" id="proj6ViewMore">View Full Details</span>
+                    </div>
+                </div>
+                <!-- Project 7: Microservices -->
+                <div class="project-card" onclick="openModal('proj7')">
+                    <div class="project-header">
+                        <span class="project-date">10/2023 - 12/2023</span>
+                        <h3 class="project-title" id="proj7Title">Microservices Architecture</h3>
+                        <div class="project-company">Personal Project</div>
+                    </div>
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+                    <div class="project-tab-content active" data-tab="preview"></div>
+                    <div class="project-body">
+                        <p class="project-preview" id="proj7Preview">Enterprise architecture with service discovery, API
+                            gateway and secure authentication...</p>
+                        <div class="project-tech-tags">
+                            <span class="tech-tag">Spring Boot</span>
+                            <span class="tech-tag">Eureka</span>
+                            <span class="tech-tag">Keycloak</span>
+                            <span class="tech-tag">Docker</span>
+                        </div>
+                        <span class="view-details" id="proj7ViewMore">View Full Details</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <h3 id="footerContact">Let's Connect!</h3>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/chedli-khangui" target="_blank">LinkedIn</a>
+            <a href="https://github.com/chedlikh" target="_blank">GitHub</a>
+            <a href="mailto:chedli.khangui@gmail.com">Email</a>
+        </div>
+        <p>© 2025 Chedli Khangui. All rights reserved.</p>
+    </footer>
+    <!-- Modal Container -->
+    <div class="modal" id="modal" onclick="closeModalOutside(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-close" onclick="closeModal()">×</div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-subtitle" id="modalCompany"></div>
+                <div class="modal-date" id="modalDate"></div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-tabs" id="modalTabs"></div>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let currentLang = 'fr';
+        let currentTheme = 'dark';
+        // Initialize theme from localStorage or default to light
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                currentTheme = savedTheme;
+                document.documentElement.setAttribute('data-theme', currentTheme);
+                updateThemeButton();
+            }
+        }
+        // Toggle between light and dark themes
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('theme', currentTheme);
+            updateThemeButton();
+        }
+        // Update theme button text and icon
+        function updateThemeButton() {
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            if (currentTheme === 'dark') {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = currentLang === 'fr' ? 'Mode Sombre' : 'Dark Mode';
+            } else {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = currentLang === 'fr' ? 'Mode Clair' : 'Light Mode';
+            }
+        }
+
+        // Language toggle
+        function toggleLanguage() {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            updateLanguage();
+            updateThemeButton();
+        }
+
+        // Update content based on language
+        function updateLanguage() {
+            const langText = document.getElementById('langText');
+            langText.textContent = currentLang === 'fr' ? '🇫🇷 FR' : '🇬🇧 EN';
+
+            const translations = {
+                en: {
+                    heroName: 'Chedli Khangui',
+                    heroTitle: 'Software Architecture Engineer',
+                    heroDesc: 'Passionate about full-stack development with Java, Spring Boot, Angular, and ReactJS, with solid experience in DevOps.',
+                    aboutTitle: 'About Me',
+                    profileTitle: 'Profile',
+                    profileText: 'Software architecture engineer passionate about full-stack development in Java, Spring Boot, Angular, and ReactJS, with solid experience in CI/CD and DevOps. I design high-performance, scalable, and user-oriented applications.',
+                    educationTitle: 'Education',
+                    educationDegree1: 'Software Architecture Engineering',
+                    educationDegree2: 'Bachelor in Management IT',
+                    projectsTitle: 'Projects & Experience',
+                    proj1Title: 'GreenSpace - Spring Boot & ReactJS',
+                    proj1Preview: 'Web application for user management and internal communication with complete CI/CD pipeline implementation.',
+                    proj1ViewMore: 'View Full Details',
+                    proj2Title: 'Restaurant App - Angular & Spring Boot',
+                    proj2Preview: 'Full-stack application with Google Maps API integration for establishments consulting and reviews.',
+                    proj2ViewMore: 'View Full Details',
+                    proj3Title: 'Online Education Platform',
+                    proj3Preview: 'Education platform for students with comprehensive course, test, and resource management.',
+                    proj3ViewMore: 'View Full Details',
+                    proj4Title: 'Automatisation du processus de packaging - .NET & Angular',
+                    proj4Preview: 'Application to automate packaging and optimize deployment processes with advanced management features.',
+                    proj4ViewMore: 'View Full Details',
+                    proj5Title: 'Poker Planning for Scrum',
+                    proj5Preview: 'Agile management application with Jira integration, voting system, and statistical analysis.',
+                    proj5ViewMore: 'View Full Details',
+                    proj6Title: 'DevOps: CI/CD Pipeline',
+                    proj6Preview: 'Complete pipeline with automated testing, code quality analysis, and performance monitoring.',
+                    proj6ViewMore: 'View Full Details',
+                    proj7Title: 'Microservices Architecture',
+                    proj7Preview: 'Enterprise architecture with service discovery, API gateway, and secure authentication.',
+                    proj7ViewMore: 'View Full Details',
+                    footerContact: 'Let\'s Connect!'
+                },
+                fr: {
+                    heroName: 'Chedli Khangui',
+                    heroTitle: 'Ingénieur en Architecture Logicielle',
+                    heroDesc: 'Passionné par le développement full-stack avec Java, Spring Boot, Angular et ReactJS, avec une solide expérience en DevOps.',
+                    aboutTitle: 'À Propos de Moi',
+                    profileTitle: 'Profil',
+                    profileText: 'Ingénieur en architecture logicielle passionné par le développement full-stack en Java, Spring Boot, Angular et ReactJS, avec une solide expérience en CI/CD et DevOps. Je conçois des applications performantes, évolutives et orientées utilisateur.',
+                    educationTitle: 'Éducation',
+                    educationDegree1: 'Ingénierie en Architecture Logicielle',
+                    educationDegree2: 'Licence en Gestion Informatique',
+                    projectsTitle: 'Projets & Expérience',
+                    proj1Title: 'GreenSpace - Spring Boot & ReactJS',
+                    proj1Preview: 'Application web pour la gestion des utilisateurs et la communication interne avec une implémentation complète de pipeline CI/CD.',
+                    proj1ViewMore: 'Voir Tous les Détails',
+                    proj2Title: 'Application Delice ou deçoit - Angular & Spring Boot',
+                    proj2Preview: 'Application full-stack avec intégration de l\'API Google Maps pour la consultation et les avis sur les établissements.',
+                    proj2ViewMore: 'Voir Tous les Détails',
+                    proj3Title: 'Plateforme d\'Éducation en Ligne',
+                    proj3Preview: 'Plateforme éducative pour les étudiants avec une gestion complète des cours, tests et ressources.',
+                    proj3ViewMore: 'Voir Tous les Détails',
+                    proj4Title: 'Automatisation du processus de packaging - .NET & Angular',
+                    proj4Preview: 'Application pour automatiser l\'empaquetage et optimiser les processus de déploiement avec des fonctionnalités de gestion avancées.',
+                    proj4ViewMore: 'Voir Tous les Détails',
+                    proj5Title: 'Planification Poker pour Scrum',
+                    proj5Preview: 'Application de gestion agile avec intégration Jira, système de vote et analyse statistique.',
+                    proj5ViewMore: 'Voir Tous les Détails',
+                    proj6Title: 'DevOps : Pipeline CI/CD',
+                    proj6Preview: 'Pipeline complet avec tests automatisés, analyse de la qualité du code et surveillance des performances.',
+                    proj6ViewMore: 'Voir Tous les Détails',
+                    proj7Title: 'Architecture de Microservices',
+                    proj7Preview: 'Architecture d\'entreprise avec découverte de services, passerelle API et authentification sécurisée.',
+                    proj7ViewMore: 'Voir Tous les Détails',
+                    footerContact: 'Connectons-nous !'
+                }
+            };
+
+            const lang = translations[currentLang];
+            document.getElementById('heroName').textContent = lang.heroName;
+            document.getElementById('heroTitle').textContent = lang.heroTitle;
+            document.getElementById('heroDesc').textContent = lang.heroDesc;
+            document.getElementById('aboutTitle').textContent = lang.aboutTitle;
+            document.getElementById('profileTitle').textContent = lang.profileTitle;
+            document.getElementById('profileText').textContent = lang.profileText;
+            document.getElementById('educationTitle').textContent = lang.educationTitle;
+            document.getElementById('educationDegree1').textContent = lang.educationDegree1;
+            document.getElementById('educationDegree2').textContent = lang.educationDegree2;
+            document.getElementById('projectsTitle').textContent = lang.projectsTitle;
+            document.getElementById('proj1Title').textContent = lang.proj1Title;
+            document.getElementById('proj1Preview').textContent = lang.proj1Preview;
+            document.getElementById('proj1ViewMore').textContent = lang.proj1ViewMore;
+            document.getElementById('proj2Title').textContent = lang.proj2Title;
+            document.getElementById('proj2Preview').textContent = lang.proj2Preview;
+            document.getElementById('proj2ViewMore').textContent = lang.proj2ViewMore;
+            document.getElementById('proj3Title').textContent = lang.proj3Title;
+            document.getElementById('proj3Preview').textContent = lang.proj3Preview;
+            document.getElementById('proj3ViewMore').textContent = lang.proj3ViewMore;
+            document.getElementById('proj4Title').textContent = lang.proj4Title;
+            document.getElementById('proj4Preview').textContent = lang.proj4Preview;
+            document.getElementById('proj4ViewMore').textContent = lang.proj4ViewMore;
+            document.getElementById('proj5Title').textContent = lang.proj5Title;
+            document.getElementById('proj5Preview').textContent = lang.proj5Preview;
+            document.getElementById('proj5ViewMore').textContent = lang.proj5ViewMore;
+            document.getElementById('proj6Title').textContent = lang.proj6Title;
+            document.getElementById('proj6Preview').textContent = lang.proj6Preview;
+            document.getElementById('proj6ViewMore').textContent = lang.proj6ViewMore;
+            document.getElementById('proj7Title').textContent = lang.proj7Title;
+            document.getElementById('proj7Preview').textContent = lang.proj7Preview;
+            document.getElementById('proj7ViewMore').textContent = lang.proj7ViewMore;
+            document.getElementById('footerContact').textContent = lang.footerContact;
+        }
+
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Modal handling
+        const modalData = {
+            proj1: {
+                title: currentLang === 'fr' ? 'GreenSpace - Spring Boot & ReactJS' : 'GreenSpace - Spring Boot & ReactJS',
+                company: 'Biwaï',
+                date: '01/2025 - 07/2025',
+                tabs: [
+                    {
+                        name: currentLang === 'fr' ? 'Aperçu' : 'Overview',
+                        content: `
+                            <p class="modal-description">${currentLang === 'fr' ? 'Application web conçue pour une gestion efficace des utilisateurs et une communication interne fluide. Implémentation d\'un pipeline CI/CD complet avec tests automatisés et surveillance.' : 'Web application designed for efficient user management and seamless internal communication. Implemented a complete CI/CD pipeline with automated testing and monitoring.'}</p>
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Fonctionnalités Principales' : 'Key Features'}</h4>
+                            <ul class="modal-features">
+                                <li>${currentLang === 'fr' ? 'Gestion des utilisateurs avec authentification sécurisée' : 'User management with secure authentication'}</li>
+                                <li>${currentLang === 'fr' ? 'Communication en temps réel via WebSocket' : 'Real-time communication via WebSocket'}</li>
+                                <li>${currentLang === 'fr' ? 'Pipeline CI/CD avec Jenkins et SonarQube' : 'CI/CD pipeline with Jenkins and SonarQube'}</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Technologies' : 'Technologies',
+                        content: `
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Technologies Utilisées' : 'Technologies Used'}</h4>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">ReactJS</span>
+                                <span class="modal-tech-tag">MySQL</span>
+                                <span class="modal-tech-tag">Docker</span>
+                                <span class="modal-tech-tag">Jenkins</span>
+                                <span class="modal-tech-tag">SonarQube</span>
+                            </div>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'video' : 'video',
+                        content: `<div class="media-placeholder">
+                    <iframe
+                        width="100%"
+                        height="315"
+                        src="https://www.youtube-nocookie.com/embed/-eek9Y1T7Qo?rel=0&enablejsapi=1"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                    <div style="margin-top: 20px; font-size: 0.9rem;">
+                        <a href="https://www.youtube.com/watch?v=-eek9Y1T7Qo" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                            Watch on YouTube if the video doesn't load
+                        </a>
+                    </div>
+                </div>`
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Captures d\'Écran' : 'Screenshots',
+                        content: `
+                <div class="thumbnail-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            <img src="./screenshots/greenspace1.png" alt="Screenshot 1" class="carousel-slide active">
+                            <img src="./screenshots/greenspacex (1).png" alt="Screenshot 2" class="carousel-slide">
+                            <img src="./screenshots/greenspace (3).jpg" alt="Screenshot 3" class="carousel-slide">
+                            <img src="./screenshots/greenspace (4).jpg" alt="Screenshot 4" class="carousel-slide">
+                            <img src="./screenshots/greenspace13.png" alt="Screenshot 5" class="carousel-slide">
+                            <img src="./screenshots/greenspace14.png" alt="Screenshot 6" class="carousel-slide">
+                            <img src="./screenshots/greenspace15.png" alt="Screenshot 7" class="carousel-slide">
+                            <img src="./screenshots/greenspace16.png" alt="Screenshot 8" class="carousel-slide">
+                            <img src="./screenshots/greenspace3.png" alt="Screenshot 9" class="carousel-slide">
+                            <img src="./screenshots/greenspace5.png" alt="Screenshot 10" class="carousel-slide">
+                            <img src="./screenshots/greenspace6.png" alt="Screenshot 11" class="carousel-slide">
+                            <img src="./screenshots/greenspace7.png" alt="Screenshot 12" class="carousel-slide">
+                            <img src="./screenshots/greenspacex (2).png" alt="Screenshot 13" class="carousel-slide">
+                            <img src="./screenshots/greenspace8.png" alt="Screenshot 14" class="carousel-slide">
+                            <img src="./screenshots/greenspace9.png" alt="Screenshot 15" class="carousel-slide">
+                            <img src="./screenshots/greenspace10.png" alt="Screenshot 16" class="carousel-slide">
+                            <img src="./screenshots/greenspace11.png" alt="Screenshot 17" class="carousel-slide">
+                            <img src="./screenshots/greenspace12.png" alt="Screenshot 18" class="carousel-slide">
+                            <img src="./screenshots/greenspace18.png" alt="Screenshot 19" class="carousel-slide">
+                            <img src="./screenshots/greenspace (1).jpg" alt="Screenshot 20" class="carousel-slide">
+                            <img src="./screenshots/greenspace19.png" alt="Screenshot 21" class="carousel-slide">
+                            <img src="./screenshots/greenspace20.png" alt="Screenshot 22" class="carousel-slide">
+                            <img src="./screenshots/greenspace21.png" alt="Screenshot 23" class="carousel-slide">
+                            <img src="./screenshots/greenspace22.png" alt="Screenshot 24" class="carousel-slide">
+                            <img src="./screenshots/greenspace23.png" alt="Screenshot 25" class="carousel-slide">*
+                            <img src="./screenshots/greenspace24.png" alt="Screenshot 26" class="carousel-slide">
+                            <img src="./screenshots/greenspace25.png" alt="Screenshot 27" class="carousel-slide">
+                            <img src="./screenshots/greenspace26.png" alt="Screenshot 28" class="carousel-slide">
+                            <img src="./screenshots/greenspace (7).jpg" alt="Screenshot 29" class="carousel-slide">
+
+                        </div>
+                        <button class="carousel-btn prev" onclick="prevSlide()">←</button>
+                        <button class="carousel-btn next" onclick="nextSlide()">→</button>
+                    </div>
+                    <div class="carousel-thumbnails" id="carouselThumbnails"></div>
+                    <div class="carousel-counter" id="carouselCounter">1 / 29</div>
+                </div>
+            `
+                    }
+                ]
+            },
+            proj2: {
+                title: currentLang === 'fr' ? 'Application Delice ou deçoit- Angular & Spring Boot' : 'Restaurant App - Angular & Spring Boot',
+                company: 'NowWeProg',
+                date: '06/2024 - 08/2024',
+                tabs: [
+                    {
+                        name: currentLang === 'fr' ? 'Aperçu' : 'Overview',
+                        content: `
+                            <p class="modal-description">${currentLang === 'fr' ? 'Application full-stack intégrant l\'API Google Maps pour la consultation d\'établissements et la gestion des avis utilisateurs.' : 'Full-stack application integrating Google Maps API for establishment consultation and user reviews management.'}</p>
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Fonctionnalités Principales' : 'Key Features'}</h4>
+                            <ul class="modal-features">
+                                <li>${currentLang === 'fr' ? 'Recherche géolocalisée d\'établissements' : 'Geolocated search for establishments'}</li>
+                                <li>${currentLang === 'fr' ? 'Système d\'avis et de notations' : 'Review and rating system'}</li>
+                                <li>${currentLang === 'fr' ? 'Intégration API sécurisée' : 'Secure API integration'}</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Technologies' : 'Technologies',
+                        content: `
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Technologies Utilisées' : 'Technologies Used'}</h4>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">Angular</span>
+                                <span class="modal-tech-tag">Google Maps API</span>
+                                <span class="modal-tech-tag">Java</span>
+                            </div>
+                        `
+                    },
+                    {
+
+                        name: currentLang === 'fr' ? 'Captures d\'Écran' : 'Screenshots',
+                        content: `
+                <div class="thumbnail-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            <img src="./screenshots/deliceoudecoit5.png" alt="Screenshot 30" class="carousel-slide active">
+                            <img src="./screenshots/deliceoudecoit6.png" alt="Screenshot 31" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit1.png" alt="Screenshot 32" class="carousel-slide ">
+                            <img src="./screenshots/deliceoudecoit2.png" alt="Screenshot 33" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit3.png" alt="Screenshot 34" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit4.png" alt="Screenshot 35" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit7.png" alt="Screenshot 36" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit8.png" alt="Screenshot 37" class="carousel-slide">
+                            <img src="./screenshots/deliceoudecoit9.png" alt="Screenshot 38" class="carousel-slide">
+                        </div>
+                        <button class="carousel-btn prev" onclick="prevSlide()">←</button>
+                        <button class="carousel-btn next" onclick="nextSlide()">→</button>
+                    </div>
+                    <div class="carousel-thumbnails" id="carouselThumbnails"></div>
+                    <div class="carousel-counter" id="carouselCounter">1 / 9</div>
+                </div>
+            `
+                    }
+                ]
+            },
+            proj3: {
+                title: currentLang === 'fr' ? 'Plateforme d\'Éducation en Ligne' : 'Online Education Platform',
+                company: 'NowWeProg',
+                date: '07/2023 - 08/2023',
+                tabs: [
+                    {
+                        name: currentLang === 'fr' ? 'Aperçu' : 'Overview',
+                        content: `
+                            <p class="modal-description">${currentLang === 'fr' ? 'Plateforme éducative complète pour la gestion des cours, tests et ressources pour les étudiants.' : 'Comprehensive educational platform for managing courses, tests, and resources for students.'}</p>
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Fonctionnalités Principales' : 'Key Features'}</h4>
+                            <ul class="modal-features">
+                                <li>${currentLang === 'fr' ? 'Gestion des cours et des tests' : 'Course and test management'}</li>
+                                <li>${currentLang === 'fr' ? 'Tableau de bord étudiant personnalisé' : 'Personalized student dashboard'}</li>
+                                <li>${currentLang === 'fr' ? 'Suivi des progrès en temps réel' : 'Real-time progress tracking'}</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Technologies' : 'Technologies',
+                        content: `
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Technologies Utilisées' : 'Technologies Used'}</h4>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">Angular</span>
+                                <span class="modal-tech-tag">Java</span>
+                                <span class="modal-tech-tag">Agile</span>
+                            </div>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Captures d\'Écran' : 'Screenshots',
+                        content: `
+                <div class="thumbnail-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            <img src="./screenshots/screen (2).png" alt="Screenshot 2" class="carousel-slide active">
+                            <img src="./screenshots/screen (3).png" alt="Screenshot 3" class="carousel-slide">
+                            <img src="./screenshots/screen (4).png" alt="Screenshot 4" class="carousel-slide">
+                            <img src="./screenshots/screen (5).png" alt="Screenshot 5" class="carousel-slide">
+*                            <img src="./screenshots/screen (6).png" alt="Screenshot 7" class="carousel-slide">
+                            <img src="./screenshots/screen (8).png" alt="Screenshot 8" class="carousel-slide">
+                            <img src="./screenshots/screen (9).png" alt="Screenshot 9" class="carousel-slide">
+                            <img src="./screenshots/screen (1).png" alt="Screenshot 1" class="carousel-slide ">
+                            <img src="./screenshots/screen (10).png" alt="Screenshot 10" class="carousel-slide">
+                            <img src="./screenshots/screen (11).png" alt="Screenshot 11" class="carousel-slide">
+                            <img src="./screenshots/screen (12).png" alt="Screenshot 12" class="carousel-slide">
+                            <img src="./screenshots/screen (13).png" alt="Screenshot 13" class="carousel-slide">
+                            <img src="./screenshots/screen (14).png" alt="Screenshot 14" class="carousel-slide">
+                            <img src="./screenshots/screen (15).png" alt="Screenshot 15" class="carousel-slide">
+                            
+
+                        </div>
+                        <button class="carousel-btn prev" onclick="prevSlide()">←</button>
+                        <button class="carousel-btn next" onclick="nextSlide()">→</button>
+                    </div>
+                    <div class="carousel-thumbnails" id="carouselThumbnails"></div>
+                    <div class="carousel-counter" id="carouselCounter">1 / 29</div>
+                </div>
+            `
+                    }
+                ]
+            },
+            proj4: {
+                title: currentLang === 'fr' ? 'Automatisation du processus de packaging  - .NET & Angular' : 'Automatisation du processus de packaging - .NET & Angular',
+                company: 'Axe Finance',
+                date: '01/2022 - 06/2022',
+                tabs: [
+                    {
+                        name: currentLang === 'fr' ? 'Aperçu' : 'Overview',
+                        content: `
+                            <p class="modal-description">${currentLang === 'fr' ? 'Application pour automatiser les processus d\'empaquetage et de déploiement avec des fonctionnalités avancées de gestion.' : 'Application to automate packaging and deployment processes with advanced management features.'}</p>
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Fonctionnalités Principales' : 'Key Features'}</h4>
+                            <ul class="modal-features">
+                                <li>${currentLang === 'fr' ? 'Automatisation des déploiements' : 'Deployment automation'}</li>
+                                <li>${currentLang === 'fr' ? 'Gestion des versions' : 'Version management'}</li>
+                                <li>${currentLang === 'fr' ? 'Interface utilisateur intuitive' : 'Intuitive user interface'}</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Technologies' : 'Technologies',
+                        content: `
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Technologies Utilisées' : 'Technologies Used'}</h4>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">.NET</span>
+                                <span class="modal-tech-tag">Angular</span>
+                                <span class="modal-tech-tag">SQL</span>
+                            </div>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Captures d\'Écran' : 'Screenshots',
+                        content: `
+                <div class="thumbnail-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            <img src="./screenshots/axefinance (2).png" alt="Screenshot 1" class="carousel-slide active">
+                            <img src="./screenshots/axefinance (3).png" alt="Screenshot 3" class="carousel-slide">
+                            <img src="./screenshots/axefinance (4).png" alt="Screenshot 4" class="carousel-slide">
+*                            <img src="./screenshots/axefinance (5).png" alt="Screenshot 5" class="carousel-slide">
+                            <img src="./screenshots/axefinance (6).png" alt="Screenshot 6" class="carousel-slide">
+                            <img src="./screenshots/axefinance (7).png" alt="Screenshot 7" class="carousel-slide">
+                            <img src="./screenshots/axefinance (8).png" alt="Screenshot 8" class="carousel-slide ">
+                            <img src="./screenshots/axefinance (9).png" alt="Screenshot 9" class="carousel-slide">
+                            <img src="./screenshots/axefinance (10).png" alt="Screenshot 10" class="carousel-slide">
+                            <img src="./screenshots/axefinance (11).png" alt="Screenshot 11" class="carousel-slide">
+                            <img src="./screenshots/axefinance (1).png" alt="Screenshot 2" class="carousel-slide">
+
+                        </div>
+                        <button class="carousel-btn prev" onclick="prevSlide()">←</button>
+                        <button class="carousel-btn next" onclick="nextSlide()">→</button>
+                    </div>
+                    <div class="carousel-thumbnails" id="carouselThumbnails"></div>
+                    <div class="carousel-counter" id="carouselCounter">1 / 11</div>
+                </div>
+            `
+                    }
+                ]
+            },
+            proj5: {
+                title: currentLang === 'fr' ? 'Planification Poker pour Scrum' : 'Poker Planning for Scrum',
+                company: 'Personal Project',
+                date: '01/2024 - 05/2024',
+                tabs: [
+                    {
+                        name: currentLang === 'fr' ? 'Aperçu' : 'Overview',
+                        content: `
+                            <p class="modal-description">${currentLang === 'fr' ? 'Application de gestion agile avec intégration Jira, système de vote et analyse statistique pour la planification Scrum.' : 'Agile management application with Jira integration, voting system, and statistical analysis for Scrum planning.'}</p>
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Fonctionnalités Principales' : 'Key Features'}</h4>
+                            <ul class="modal-features">
+                                <li>${currentLang === 'fr' ? 'Intégration avec Jira pour la gestion des tâches' : 'Jira integration for task management'}</li>
+                                <li>${currentLang === 'fr' ? 'Système de vote en temps réel' : 'Real-time voting system'}</li>
+                                <li>${currentLang === 'fr' ? 'Analyse statistique des sessions' : 'Statistical analysis of sessions'}</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Technologies' : 'Technologies',
+                        content: `
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Technologies Utilisées' : 'Technologies Used'}</h4>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">Angular</span>
+                                <span class="modal-tech-tag">Jira API</span>
+                                <span class="modal-tech-tag">PostgreSQL</span>
+                            </div>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'video' : 'video',
+                        content: `<div class="media-placeholder">
+                    <iframe
+                        width="100%"
+                        height="315"
+                        src="https://www.youtube.com/embed/Gox0KsKT56w?si=9t5XwoPutRemgqsM"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                    <div style="margin-top: 20px; font-size: 0.9rem;">
+                        <a href="https://www.youtube.com/embed/Gox0KsKT56w?si=9t5XwoPutRemgqsM" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                            Watch on YouTube if the video doesn't load
+                        </a>
+                    </div>
+                </div>`
+                    },
+                    {
+
+                        name: currentLang === 'fr' ? 'Captures d\'Écran' : 'Screenshots',
+                        content: `
+                <div class="thumbnail-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            
+                            <img src="./screenshots/attestation.jpg" alt="Screenshot 1" class="carousel-slide active">
+
+                            <img src="./screenshots/pokerspire (6).png" alt="Screenshot 2" class="carousel-slide ">
+                            <img src="./screenshots/pokerspire (9).png" alt="Screenshot 3" class="carousel-slide">
+
+                            <img src="./screenshots/pokerspire (4).png" alt="Screenshot 4" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (5).png" alt="Screenshot 5" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (2).png" alt="Screenshot 6" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (3).png" alt="Screenshot 7" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (10).png" alt="Screenshot 8" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (11).png" alt="Screenshot 9" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (12).png" alt="Screenshot 10" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (13).png" alt="Screenshot 11" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (14).png" alt="Screenshot 12" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (1).jpg" alt="Screenshot 13" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (2).jpg" alt="Screenshot 14" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (3).jpg" alt="Screenshot 15" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (4).jpg" alt="Screenshot 16" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (5).jpg" alt="Screenshot 17" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (6).jpg" alt="Screenshot 18" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (7).jpg" alt="Screenshot 19" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (8).jpg" alt="Screenshot 20" class="carousel-slide">
+                            <img src="./screenshots/pokerspire (9).jpg" alt="Screenshot 21" class="carousel-slide">
+
+
+                        </div>
+                        <button class="carousel-btn prev" onclick="prevSlide()">←</button>
+                        <button class="carousel-btn next" onclick="nextSlide()">→</button>
+                    </div>
+                    <div class="carousel-thumbnails" id="carouselThumbnails"></div>
+                    <div class="carousel-counter" id="carouselCounter">1 / 21</div>
+                </div>
+            `
+                    }
+                ]
+            },
+            proj6: {
+                title: currentLang === 'fr' ? 'DevOps : Pipeline CI/CD' : 'DevOps: CI/CD Pipeline',
+                company: 'Personal Project',
+                date: '01/2024 - 02/2024',
+                tabs: [
+                    {
+                        name: currentLang === 'fr' ? 'Aperçu' : 'Overview',
+                        content: `
+                            <p class="modal-description">${currentLang === 'fr' ? 'Pipeline CI/CD complet avec tests automatisés, analyse de la qualité du code et surveillance des performances.' : 'Complete CI/CD pipeline with automated testing, code quality analysis, and performance monitoring.'}</p>
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Fonctionnalités Principales' : 'Key Features'}</h4>
+                            <ul class="modal-features">
+                                <li>${currentLang === 'fr' ? 'Tests automatisés avec Jenkins' : 'Automated testing with Jenkins'}</li>
+                                <li>${currentLang === 'fr' ? 'Analyse de code avec SonarQube' : 'Code analysis with SonarQube'}</li>
+                                <li>${currentLang === 'fr' ? 'Surveillance avec Grafana' : 'Monitoring with Grafana'}</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Technologies' : 'Technologies',
+                        content: `
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Technologies Utilisées' : 'Technologies Used'}</h4>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Jenkins</span>
+                                <span class="modal-tech-tag">Docker</span>
+                                <span class="modal-tech-tag">SonarQube</span>
+                                <span class="modal-tech-tag">Grafana</span>
+                            </div>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Captures d\'Écran' : 'Screenshots',
+                        content: `
+                            <div class="media-placeholder">
+                                <p>${currentLang === 'fr' ? 'Captures d\'écran bientôt disponibles' : 'Screenshots coming soon'}</p>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            proj7: {
+                title: currentLang === 'fr' ? 'Architecture de Microservices' : 'Microservices Architecture',
+                company: 'Personal Project',
+                date: '10/2023 - 12/2023',
+                tabs: [
+                    {
+                        name: currentLang === 'fr' ? 'Aperçu' : 'Overview',
+                        content: `
+                            <p class="modal-description">${currentLang === 'fr' ? 'Architecture d\'entreprise avec découverte de services, passerelle API et authentification sécurisée.' : 'Enterprise architecture with service discovery, API gateway, and secure authentication.'}</p>
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Fonctionnalités Principales' : 'Key Features'}</h4>
+                            <ul class="modal-features">
+                                <li>${currentLang === 'fr' ? 'Découverte de services avec Eureka' : 'Service discovery with Eureka'}</li>
+                                <li>${currentLang === 'fr' ? 'Passerelle API sécurisée' : 'Secure API gateway'}</li>
+                                <li>${currentLang === 'fr' ? 'Authentification avec Keycloak' : 'Authentication with Keycloak'}</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Technologies' : 'Technologies',
+                        content: `
+                            <h4 class="tech-section-title">${currentLang === 'fr' ? 'Technologies Utilisées' : 'Technologies Used'}</h4>
+                            <div class="modal-tech-grid">
+                                <span class="modal-tech-tag">Spring Boot</span>
+                                <span class="modal-tech-tag">Eureka</span>
+                                <span class="modal-tech-tag">Keycloak</span>
+                                <span class="modal-tech-tag">Docker</span>
+                            </div>
+                        `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Captures d\'Écran' : 'Screenshots',
+                        content: `
+                            <div class="media-placeholder">
+                                <p>${currentLang === 'fr' ? 'Captures d\'écran bientôt disponibles' : 'Screenshots coming soon'}</p>
+                            </div>
+                        `
+                    }
+                ]
+            }
+        };
+
+        function openModal(projectId) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalCompany = document.getElementById('modalCompany');
+            const modalDate = document.getElementById('modalDate');
+            const modalTabs = document.getElementById('modalTabs');
+            const modalContent = document.getElementById('modalContent');
+
+            const project = modalData[projectId];
+            if (!project) return;
+
+            modalTitle.textContent = project.title;
+            modalCompany.textContent = project.company;
+            modalDate.textContent = project.date;
+
+            modalTabs.innerHTML = '';
+            modalContent.innerHTML = '';
+
+            project.tabs.forEach((tab, index) => {
+                const tabButton = document.createElement('button');
+                tabButton.className = `modal-tab${index === 0 ? ' active' : ''}`;
+                tabButton.textContent = tab.name;
+                tabButton.onclick = () => switchModalTab(index, project.tabs, modalContent);
+                modalTabs.appendChild(tabButton);
+
+                const tabContent = document.createElement('div');
+                tabContent.className = `modal-tab-content${index === 0 ? ' active' : ''}`;
+                tabContent.innerHTML = tab.content;
+                modalContent.appendChild(tabContent);
+            });
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Initialize carousel for proj1 screenshots
+            if (projectId === 'proj1') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+            if (projectId === 'proj2') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+            if (projectId === 'proj3') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+            if (projectId === 'proj4') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+            if (projectId === 'proj5') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+            if (projectId === 'proj6') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+            if (projectId === 'proj7') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+        }
+
+        function switchModalTab(index, tabs, contentContainer) {
+            const tabButtons = document.querySelectorAll('.modal-tab');
+            const tabContents = document.querySelectorAll('.modal-tab-content');
+
+            tabButtons.forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+
+            tabContents.forEach((content, i) => {
+                content.classList.toggle('active', i === index);
+            });
+
+            // Re-initialize carousel if switching to screenshots tab
+            if (tabs[index].name.toLowerCase().includes('screenshots')) {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function closeModalOutside(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal();
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTheme();
+            updateLanguage();
+            // Initialize project card tabs
+
+        });
+    </script>
+</body>
+
+</html>
