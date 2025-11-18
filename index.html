@@ -2608,20 +2608,19 @@
         let currentTheme = 'dark';
         // Initialize theme from localStorage or default to light
         function initializeTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                currentTheme = savedTheme;
-                document.documentElement.setAttribute('data-theme', currentTheme);
-                updateThemeButton();
-            }
+        const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to 'dark'
+        currentTheme = savedTheme;
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateThemeButton();
         }
-        // Toggle between light and dark themes
+
+        // Also update your toggleTheme function:
         function toggleTheme() {
-            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', currentTheme);
-            localStorage.setItem('theme', currentTheme);
-            updateThemeButton();
-        }
+        currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        localStorage.setItem('theme', currentTheme);
+        updateThemeButton();
+       }
         // Update theme button text and icon
         function updateThemeButton() {
             const themeIcon = document.getElementById('themeIcon');
@@ -3426,10 +3425,8 @@
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
-            initializeTheme();
-            updateLanguage();
-            // Initialize project card tabs
-
+        initializeTheme(); // Call this FIRST
+        updateLanguage();
         });
     </script>
 </body>
