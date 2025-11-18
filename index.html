@@ -597,52 +597,59 @@
             padding: 30px;
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.03), rgba(236, 72, 153, 0.03));
             position: relative;
-            background-size: contain !important;   /* shows FULL image */
- background-color: #0d1117;
- border-radius: 12px 12px 0 0;
- overflow: hidden;
- 
+            background-size: contain !important;
+            /* shows FULL image */
+            background-color: #0d1117;
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+
         }
+
         .project-header::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: inherit;                     /* copies the same background-image */
-    background-size: cover;                  /* cover for the blur layer */
-    filter: blur(2px);                       /* change number to make it more/less blurry */
-    transform: scale(1.1);                    /* slightly zoom to avoid white edges */
-    z-index: 1;
-}
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: inherit;
+            /* copies the same background-image */
+            background-size: cover;
+            /* cover for the blur layer */
+            filter: blur(2px);
+            /* change number to make it more/less blurry */
+            transform: scale(1.1);
+            /* slightly zoom to avoid white edges */
+            z-index: 1;
+        }
 
-/* Dark overlay so text stays readable */
-.project-header::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 2;
-}
+        /* Dark overlay so text stays readable */
+        .project-header::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 2;
+        }
 
-/* Your text stays on top */
-.project-header > .header-content,
-.project-header > .project-date,
-.project-header > .project-title,
-.project-header > .project-company {
-    position: relative;
-    z-index: 3;
-    color: white;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-}
+        /* Your text stays on top */
+        .project-header>.header-content,
+        .project-header>.project-date,
+        .project-header>.project-title,
+        .project-header>.project-company {
+            position: relative;
+            z-index: 3;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
         .project-header-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(transparent, rgba(85, 70, 100, 0.418));
-    pointer-events: none;
-}
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent, rgba(85, 70, 100, 0.418));
+            pointer-events: none;
+        }
 
-.project-header:hover {
-    transform: translateY(-4px);
-}
+        .project-header:hover {
+            transform: translateY(-4px);
+        }
 
         [data-theme="dark"] .project-header {
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(236, 72, 153, 0.05));
@@ -2115,14 +2122,19 @@
             /* prevents text from overflowing */
             font-weight: 700;
         }
+
         .header-bg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;           /* This makes the image fill perfectly */
-    display: block;
-}
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* This makes the image fill perfectly */
+            display: block;
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/konpa/devicon@master/devicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -2268,7 +2280,27 @@
                 <div class="contact-item">📧 chedli.khangui@gmail.com</div>
                 <div class="contact-item">📱 +216 50837010</div>
                 <div class="contact-item">📍 Tunis, Tunisia</div>
+
+
             </div>
+
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/chedli-khangui" target="_blank" title="LinkedIn"
+                    class="social-link">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span class="social-text">LinkedIn</span>
+                </a>
+                <a href="https://github.com/chedlikh" target="_blank" title="GitHub" class="social-link">
+                    <i class="fab fa-github"></i>
+                    <span class="social-text">GitHub</span>
+                </a>
+                <a href="mailto:chedli.khangui@gmail.com" title="Email" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                    <span class="social-text">Email</span>
+                </a>
+            </div>
+
         </div>
     </section>
     <!-- Main Content -->
@@ -2307,7 +2339,50 @@
         <section id="projects">
             <h2 class="section-title" id="projectsTitle">Projects & Experience</h2>
             <div class="projects-grid">
-                <!-- Project 1: GreenSpace -->
+                <!-- Project 0: Hiring -->
+                <div class="project-card" onclick="openModal('proj0')">
+                    <!-- Header with background image -->
+                    <div class="project-header" style="background-image: url('./screenshots/hiring\ \(17\).png');">
+                        <div class="project-header-overlay"></div>
+
+                        <span class="project-date">08/2025 - 10/2025</span>
+                        <h3 class="project-title">intelligent recruiter – Full-Stack ATS with Automated Interview
+                            Scheduling</h3>
+                        <div class="project-company">Freelance • Fullstack Project</div>
+                    </div>
+
+                    <div class="project-tabs">
+                        <button class="project-tab active" data-tab="preview">Preview</button>
+                        <button class="project-tab" data-tab="technologies">Demo Video</button>
+                        <button class="project-tab" data-tab="details">Screenshots</button>
+                    </div>
+
+                    <div class="project-tab-content active" data-tab="preview"></div>
+
+                    <div class="project-body">
+                        <p class="project-preview" id="projPreview">
+                            A modern <strong>Applicant Tracking System (ATS)</strong> that automates the entire
+                            recruitment pipeline:
+                            from job posting and candidate applications to interview
+                            scheduling</strong>
+
+                        </p>
+
+                        <div class="project-tech-tags">
+                            <span class="tech-tag"><i class="devicon-spring-plain"></i> Spring Boot</span>
+                            <span class="tech-tag"><i class="devicon-angular-plain"></i> Angular</span>
+                            <span class="tech-tag"><i class="devicon-mysql-plain"></i> MySQL</span>
+                            <span class="tech-tag">JWT Auth</span>
+                            <span class="tech-tag">Spring Mail</span>
+                            <span class="tech-tag">Chart.js</span>
+                            <span class="tech-tag">Bootstrap 5</span>
+                            <span class="tech-tag">ngx-toastr</span>
+                            <span class="tech-tag">Redux</span>
+                        </div>
+
+                        <span class="view-details" id="proj0ViewMore">View Full Details →</span>
+                    </div>
+                </div>
                 <div class="project-card" onclick="openModal('proj1')">
                     <!-- NEW: Header with background image -->
                     <div class="project-header" style="background-image: url('./screenshots/greenspace1.png');">
@@ -2498,9 +2573,18 @@
     <footer>
         <h3 id="footerContact">Let's Connect!</h3>
         <div class="social-links">
-            <a href="https://www.linkedin.com/in/chedli-khangui" target="_blank">LinkedIn</a>
-            <a href="https://github.com/chedlikh" target="_blank">GitHub</a>
-            <a href="mailto:chedli.khangui@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/chedli-khangui" target="_blank" title="LinkedIn" class="social-link">
+                <i class="fab fa-linkedin-in"></i>
+                <span class="social-text">LinkedIn</span>
+            </a>
+            <a href="https://github.com/chedlikh" target="_blank" title="GitHub" class="social-link">
+                <i class="fab fa-github"></i>
+                <span class="social-text">GitHub</span>
+            </a>
+            <a href="mailto:chedli.khangui@gmail.com" title="Email" class="social-link">
+                <i class="fas fa-envelope"></i>
+                <span class="social-text">Email</span>
+            </a>
         </div>
         <p>© 2025 Chedli Khangui. All rights reserved.</p>
     </footer>
@@ -2533,7 +2617,7 @@
         }
         // Toggle between light and dark themes
         function toggleTheme() {
-            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', currentTheme);
             localStorage.setItem('theme', currentTheme);
             updateThemeButton();
@@ -2575,6 +2659,8 @@
                     educationDegree1: 'Software Architecture Engineering',
                     educationDegree2: 'Bachelor in Management IT',
                     projectsTitle: 'Projects & Experience',
+                    proj0Title: 'intelligent recruiter – Full-Stack ATS with Automated Interview Scheduling',
+                    proj0Preview: 'Full-featured Applicant Tracking System (ATS) with advanced recruitment process automation: job posting, candidate applications, technical quizzes, automatic score-based shortlisting, and one-click interview scheduling with personalized calendar invites and email notifications',
                     proj1Title: 'GreenSpace - Spring Boot & ReactJS',
                     proj1Preview: 'Web application for user management and internal communication with complete CI/CD pipeline implementation.',
                     proj1ViewMore: 'View Full Details',
@@ -2609,6 +2695,9 @@
                     educationDegree1: 'Ingénierie en Architecture Logicielle',
                     educationDegree2: 'Licence en Gestion Informatique',
                     projectsTitle: 'Projets & Expérience',
+                    proj0Title: 'intelligent recruiter – Full-Stack ATS with Automated Interview Scheduling',
+                    proj0Preview: 'Full-featured Applicant Tracking System (ATS) with advanced recruitment process automation: job posting, candidate applications, technical quizzes, automatic score-based shortlisting, and one-click interview scheduling with personalized calendar invites and email notifications',
+                    proj1Title: 'GreenSpace - Spring Boot & ReactJS',
                     proj1Title: 'GreenSpace - Spring Boot & ReactJS',
                     proj1Preview: 'Application web pour la gestion des utilisateurs et la communication interne avec une implémentation complète de pipeline CI/CD.',
                     proj1ViewMore: 'Voir Tous les Détails',
@@ -2679,6 +2768,100 @@
 
         // Modal handling
         const modalData = {
+            proj0: {
+                title: currentLang === 'fr' ? 'RecruAI – Système ATS avec Planification Automatique d\'Entretiens' : 'RecruAI – Full-Stack ATS with Automated Interview Scheduling',
+                company: 'Freelance • Fullstack Project',
+                date: '08/2025 - 10/2025',
+                tabs: [
+                    {
+                        name: currentLang === 'fr' ? 'Aperçu' : 'Overview',
+                        content: `
+                <p class="modal-description">
+                    ${currentLang === 'fr' ?
+                                'Système complet de suivi des candidatures (ATS) avec automatisation avancée du processus de recrutement : publication d\'offres, candidatures, quiz techniques, shortlisting automatique par score et planification d\'entretien en un clic avec envoi d\'emails personnalisés (Spring Mail + templates HTML).' :
+                                'Full-featured Applicant Tracking System (ATS) automating the entire hiring pipeline: job posting, applications, technical quizzes, automatic score-based shortlisting, and one-click interview scheduling with personalized calendar invites and email notifications (Spring Mail + HTML templates).'}
+                </p>
+                <h4 class="tech-section-title">${currentLang === 'fr' ? 'Fonctionnalités Clés' : 'Key Features'}</h4>
+                <ul class="modal-features">
+                    <li>Quiz techniques intégrés avec scoring automatique</li>
+                    <li>Shortlisting intelligent basé sur les résultats</li>
+                    <li>Planification d'entretien avec envoi d'emails (ICS + templates)</li>
+                    <li>Tableau de bord recruiter avec classements et statistiques</li>
+                    <li>Notifications en temps réel (ngx-toastr)</li>
+                </ul>
+            `
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Technologies' : 'Technologies',
+                        content: `
+                <h4 class the="tech-section-title">${currentLang === 'fr' ? 'Technologies Utilisées' : 'Technologies Used'}</h4>
+                <div class="modal-tech-grid">
+                    <span class="modal-tech-tag">Spring Boot</span>
+                    <span class="modal-tech-tag">Angular 11</span>
+                    <span class="modal-tech-tag">MySQL</span>
+                    <span class="modal-tech-tag">JWT Auth</span>
+                    <span class="modal-tech-tag">Spring Mail</span>
+                    <span class="modal-tech-tag">Chart.js</span>
+                    <span class="modal-tech-tag">Bootstrap 5</span>
+                    <span class="modal-tech-tag">ngx-toastr</span>
+                    <span class="modal-tech-tag">Redux</span>
+                </div>
+            `
+                    },
+                    {
+                        name: 'Demo Video',
+                        content: `<div class="media-placeholder">
+                <iframe width="100%" height="315"
+                    src="https://YOUR_YOUTUBE_DEMO_LINK"
+                    title="RecruAI Demo"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+                <div style="margin-top: 20px; font-size: 0.9rem;">
+                    <a href="https://YOUR_YOUTUBE_DEMO_LINK" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                        ${currentLang === 'fr' ? 'Regarder sur YouTube si la vidéo ne charge pas' : 'Watch on YouTube if video doesn\'t load'}
+                    </a>
+                </div>
+            </div>`
+                    },
+                    {
+                        name: currentLang === 'fr' ? 'Captures d\'Écran' : 'Screenshots',
+                        content: `
+                <div class="thumbnail-carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            <img src="./screenshots/hiring (14).png" alt="Dashboard" class="carousel-slide active">
+                            <img src="./screenshots/hiring (15).png" alt="Job Detail" class="carousel-slide">
+                            <img src="./screenshots/hiring (16).png" alt="Quiz" class="carousel-slide">
+                            <img src="./screenshots/hiring (17).png" alt="Results" class="carousel-slide">
+                            <img src="./screenshots/hiring (18).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (19).png" alt="Email Template" class="carousel-slide">
+                            <img src="./screenshots/hiring (1).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (2).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (3).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (4).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (5).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (6).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (7).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (8).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (9).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (10).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (11).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (12).png" alt="Interview Scheduling" class="carousel-slide">
+                            <img src="./screenshots/hiring (13).png" alt="Interview Scheduling" class="carousel-slide">
+
+                            <!-- Add more screenshots as needed -->
+                        </div>
+                        <button class="carousel-btn prev" onclick="prevSlide()">←</button>
+                        <button class="carousel-btn next" onclick="nextSlide()">→</button>
+                    </div>
+                    <div class="carousel-thumbnails" id="carouselThumbnails"></div>
+                    <div class="carousel-counter" id="carouselCounter">1 / 6</div>
+                </div>
+            `
+                    }
+                ]
+            },
             proj1: {
                 title: currentLang === 'fr' ? 'GreenSpace - Spring Boot & ReactJS' : 'GreenSpace - Spring Boot & ReactJS',
                 company: 'Biwaï',
@@ -3158,6 +3341,12 @@
             document.body.style.overflow = 'hidden';
 
             // Initialize carousel for proj1 screenshots
+            if (projectId === 'proj0') {
+                setTimeout(() => {
+                    initThumbnails();
+                    initializeCarousel();
+                }, 0);
+            }
             if (projectId === 'proj1') {
                 setTimeout(() => {
                     initThumbnails();
